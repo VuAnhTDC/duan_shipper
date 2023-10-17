@@ -1,4 +1,9 @@
 package com.example.duangiaohang;
 
-public class ValiDate {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class ValiDate extends AppCompatActivity {
+
+
+
 }
