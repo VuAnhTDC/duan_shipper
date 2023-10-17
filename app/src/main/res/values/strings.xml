@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">duangiaohang</string>
+    <string name="emailnguoidung">Email Người Dùng</string>
+    <string name="matkhaunguoidung">Mật Khẩu Người Dùng</string>
 </resources>
