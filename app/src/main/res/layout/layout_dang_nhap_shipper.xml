@@ -36,7 +36,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
 
-                android:id="@+id/EmailNguoiDung"
+                android:id="@+id/emailCheck"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -48,6 +48,7 @@
                 <com.google.android.material.textfield.TextInputEditText
 
                     android:layout_width="match_parent"
+
                     android:layout_height="wrap_content"
                     android:hint="@string/emailnguoidung"
                     android:inputType="textEmailAddress" />
@@ -56,7 +57,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 app:passwordToggleEnabled="true"
-                android:id="@+id/MatKhauNguoiDung"
+                android:id="@+id/passwordCheck"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -81,6 +82,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:id="@+id/tvDangKi"
                     android:text="Đăng Kí"
                     android:textAlignment="center"
                     android:textSize="20dp"
