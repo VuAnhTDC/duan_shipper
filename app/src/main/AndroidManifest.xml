@@ -2,10 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO"/>
-    <uses-permission android:name="android.permissionREAD_MEDIA_IMAGES"/>
-   <uses-permission android:name="android.permissionREAD_MEDIA_AUDIO"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+    <uses-permission android:name="android.permissionREAD_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permissionREAD_MEDIA_AUDIO" />
 
     <application
         android:allowBackup="true"
@@ -17,25 +17,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Duangiaohang"
         tools:targetApi="31">
-
-
-
+        <activity
+            android:name=".SendOTPNumberPhone"
+            android:exported="false" />
+        <activity
+            android:name=".VerifyPhoneNumberActivity"
+            android:exported="false" />
         <activity
             android:name=".DangKiShipperActivity"
             android:exported="true">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".DangNhapShipperActivity"
-            android:exported="true"/>
-
+            android:exported="true" />
     </application>
 
 </manifest>
