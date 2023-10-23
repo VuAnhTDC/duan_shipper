@@ -32,6 +32,7 @@ public class ImageUtils extends AppCompatActivity {
         ContentValues values = new ContentValues(1);
         values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
         Uri imageUri = activity.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+
         captureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
 
         Intent chooserIntent = Intent.createChooser(pickIntent, "Select Image");

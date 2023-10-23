@@ -6,7 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +18,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.duangiaohang.Models.Shipper;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
@@ -26,6 +31,8 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 
@@ -34,6 +41,8 @@ public class VerifyPhoneNumberActivity extends AppCompatActivity {
     private Button btnVeryPhoneNumber;
     private TextView tvSendOTPAgain;
     private FirebaseAuth mAuth;
+    private Shipper infoshipper;
+
     private static final String TAG = VerifyPhoneNumberActivity.class.getName();
 
     @Override
@@ -41,6 +50,9 @@ public class VerifyPhoneNumberActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_verify_phone_number);
         setControl();
+        Intent intent  = getIntent();
+        infoshipper = intent.getSerializableExtra("InfoShipperRegeter");
+
         mAuth = FirebaseAuth.getInstance();
 
         btnVeryPhoneNumber.setOnClickListener(new View.OnClickListener() {
