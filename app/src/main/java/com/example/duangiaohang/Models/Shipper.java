@@ -1,29 +1,43 @@
 package com.example.duangiaohang.Models;
 
+import android.provider.ContactsContract;
+
 import java.io.Serializable;
 
 public class Shipper implements Serializable {
-    private  String hoTenS;
+    private String IdS;
+    private String hoTenS;
     private String EmailS;
     private String sdtS;
     private String diaChiS;
-    private String khuVucS;
+    private String nguyenQuans;
     private String khuVucGH;
     private String CMNDT;
     private String CMNDS;
 
-    public Shipper(String hoTenS, String emailS, String sdtS, String diaChiS, String khuVucS, String khuVucGH, String CMNDT, String CMNDS) {
+    public Shipper() {
+    }
+
+    public Shipper(String idS, String hoTenS, String emailS, String sdtS, String diaChiS, String nguyenQuans, String khuVucGH, String CMNDT, String CMNDS) {
+        IdS = idS;
         this.hoTenS = hoTenS;
         EmailS = emailS;
         this.sdtS = sdtS;
         this.diaChiS = diaChiS;
-        this.khuVucS = khuVucS;
+        this.nguyenQuans = nguyenQuans;
         this.khuVucGH = khuVucGH;
         this.CMNDT = CMNDT;
         this.CMNDS = CMNDS;
     }
 
-    public Shipper() {
+
+
+    public String getIdS() {
+        return IdS;
+    }
+
+    public void setIdS(String idS) {
+        IdS = idS;
     }
 
     public String getHoTenS() {
@@ -58,12 +72,12 @@ public class Shipper implements Serializable {
         this.diaChiS = diaChiS;
     }
 
-    public String getKhuVucS() {
-        return khuVucS;
+    public String getNguyenQuans() {
+        return nguyenQuans;
     }
 
-    public void setKhuVucS(String khuVucS) {
-        this.khuVucS = khuVucS;
+    public void setNguyenQuans(String nguyenQuans) {
+        this.nguyenQuans = nguyenQuans;
     }
 
     public String getKhuVucGH() {
@@ -93,15 +107,15 @@ public class Shipper implements Serializable {
     @Override
     public String toString() {
         return "Shipper{" +
-                "hoTenS='" + hoTenS + '\'' +
+                "IdS='" + IdS + '\'' +
+                ", hoTenS='" + hoTenS + '\'' +
                 ", EmailS='" + EmailS + '\'' +
                 ", sdtS='" + sdtS + '\'' +
                 ", diaChiS='" + diaChiS + '\'' +
-                ", khuVucS='" + khuVucS + '\'' +
+                ", nguyenQuans='" + nguyenQuans + '\'' +
                 ", khuVucGH='" + khuVucGH + '\'' +
                 ", CMNDT='" + CMNDT + '\'' +
                 ", CMNDS='" + CMNDS + '\'' +
                 '}';
     }
-
 }

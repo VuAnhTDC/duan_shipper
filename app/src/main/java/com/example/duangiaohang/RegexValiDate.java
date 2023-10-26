@@ -19,4 +19,51 @@ public class RegexValiDate {
         Matcher matcher = pattern.matcher(password);
         return matcher.matches();
     }
+
+    public static boolean validPhone(String phone) {
+        String strRegex = "^0[0-9]{9}$";
+        Pattern pattern = Pattern.compile(strRegex);
+        Matcher matcher = pattern.matcher(phone);
+        return matcher.find();
+    }
+
+    public static boolean validFullname(String fullname) {
+        String strRegex = "^([a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\\s]{8,70})$";
+        Pattern pattern = Pattern.compile(strRegex);
+        Matcher matcher = pattern.matcher(fullname);
+        return matcher.find();
+    }
+
+    public static boolean validShipperName(String shopName) {
+        String strRegex = "^([a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ0-9'\"\\s]{8,100})$";
+        Pattern pattern = Pattern.compile(strRegex);
+        Matcher matcher = pattern.matcher(shopName);
+        return matcher.find();
+    }
+
+    public static boolean validShipperAddress(String shopAddress) {
+        String strRegex = "^(?!.*[/\\\\.]{2})[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ0-9\\s./-]{8,300}$";
+        Pattern pattern = Pattern.compile(strRegex);
+        Matcher matcher = pattern.matcher(shopAddress);
+        return matcher.find();
+    }
+
+    public static boolean validEmail(String email) {
+        String strRegex = "^([a-zA-Z0-9]+(?:\\.[a-zA-Z0-9]+)?@gmail\\.com)$";
+        Pattern pattern = Pattern.compile(strRegex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.find();
+    }
+
+    public static boolean validShipperPassword(String password) {
+        String strRegex = "^((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_-]).{8,40})$";
+        Pattern pattern = Pattern.compile(strRegex);
+        Matcher matcher = pattern.matcher(password);
+        return matcher.find();
+    }
+
+    public static boolean valiShipperdOTP(String otp) {
+        String strRegex = "^\\d{6}$";
+        return false;
+    }
 }

@@ -51,7 +51,7 @@ public class VerifyPhoneNumberActivity extends AppCompatActivity {
         setContentView(R.layout.layout_verify_phone_number);
         setControl();
         Intent intent  = getIntent();
-        infoshipper = intent.getSerializableExtra("InfoShipperRegeter");
+     //   infoshipper = intent.getSerializableExtra("InfoShipperRegeter");
 
         mAuth = FirebaseAuth.getInstance();
 

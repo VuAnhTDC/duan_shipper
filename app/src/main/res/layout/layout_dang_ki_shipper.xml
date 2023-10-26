@@ -17,6 +17,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tvDangKiGiaoHangShipper"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
@@ -28,7 +29,7 @@
                 android:textStyle="italic" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/emailCheck"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -38,42 +39,48 @@
                 app:hintEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtHoVaTen"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/hoten"
+                    android:imeOptions="actionDone"
                     android:inputType="textEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/emailSipper"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                app:hintEnabled="true"
-                app:passwordToggleEnabled="true">
+                app:hintEnabled="true">
+
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtEmailNguoiShipper"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/email_ng_i_d_ng"
+                    android:imeOptions="actionDone"
                     android:inputType="textEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/soDienThoaiSipper"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                app:hintEnabled="true"
-                app:passwordToggleEnabled="true">
+                app:hintEnabled="true">
+
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtSoDienThoaiShipper"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Số Điện Thoại "
-                    android:inputType="textPhonetic" />
+                    android:imeOptions="actionDone"
+                    android:inputType="phone" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -81,14 +88,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                app:hintEnabled="true"
-                app:passwordToggleEnabled="true">
+                android:layout_marginRight="10dp">
+
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtDiaChiThuongTruShipper"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Địa Chỉ Thường Trú"
+                    android:imeOptions="actionDone"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -98,14 +106,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                app:hintEnabled="true"
-                app:passwordToggleEnabled="true">
+                app:hintEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtNguyenQuanShipper"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Nguyên Quán"
-                    android:inputType="textPassword" />
+
+                    android:imeOptions="actionDone" />
+
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -123,11 +133,10 @@
                     android:text="Khu Vực Giao Hàng" />
 
                 <Spinner
-                    android:id="@+id/spDiaChi"
+                    android:id="@+id/spKhuVucGiaoShipper"
                     android:layout_width="300dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center" />
-
             </LinearLayout>
 
             <TextView
@@ -145,32 +154,33 @@
                 <ImageView
                     android:id="@+id/imgloadMatTruoc"
                     android:layout_width="0dp"
-                    android:layout_height="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="5dp"
                     android:layout_weight="1"
                     android:scaleType="centerCrop"
-                    android:src="@mipmap/ic_launcher_round"
-                    android:layout_marginRight="5dp"
-                    />
+                    android:src="@drawable/device_image_camera"
+                    android:adjustViewBounds="true" />
 
                 <ImageView
                     android:id="@+id/imgloadMatSau"
                     android:layout_width="0dp"
-                    android:layout_height="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
                     android:layout_weight="1"
                     android:scaleType="centerCrop"
-                    android:layout_marginLeft="5dp"
-                    android:src="@mipmap/ic_launcher_round" />
+                    android:src="@drawable/device_image_camera"
+                    android:adjustViewBounds="true" />
             </LinearLayout>
 
+
             <Button
+                android:id="@+id/btnTiepTuc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="40dp"
-                android:onClick="danhnhap"
-                android:text="Tiep Tuc "
+                android:layout_marginTop="20dp"
+                android:text="Tiếp Tục"
                 android:textSize="20dp" />
         </LinearLayout>
-
     </androidx.core.widget.NestedScrollView>
 </LinearLayout>
