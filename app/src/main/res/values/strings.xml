@@ -4,4 +4,7 @@
     <string name="matkhaunguoidung">Mật Khẩu Người Dùng</string>
     <string name="hoten">Họ Tên</string>
     <string name="email_ng_i_d_ng">Email Người Dùng</string>
+    <string name="quy_tr_nh_g_i_m_c_th_m_t_v_i_ph_t">Quy Trình Gửi Mã Có Thể Mất Vài Phút</string>
+    <string name="x_c_nh_n_otp">Xác Nhận OTP</string>
+    <string name="g_i_l_i_m_x_c_minh">Gửi lại mã xác minh?</string>
 </resources>

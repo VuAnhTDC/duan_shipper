@@ -4,44 +4,186 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".VerifyPhoneNumberActivity">
-  <TextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:id="@+id/tvVerifyPHoneNumber">
 
-  </TextView>
-       <Button
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:layout_marginTop="20dp"
-           android:textColor="@color/colorAccent"
-           android:id="@+id/btnVerifyPhoneNumber"
-           android:text=" Tiếp Tục "/>
-    <TextView
-        android:layout_width="wrap_content"
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/xacminhotp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:text="@string/x_c_nh_n_otp"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:text="@string/quy_tr_nh_g_i_m_c_th_m_t_v_i_ph_t"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:orientation="vertical"
+        app:cardCornerRadius="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/edtChotrong1"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="4dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:imeOptions="actionNext"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:maxLength="1"
+                android:textColor="@color/common_google_signin_btn_text_dark"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                tools:ignore="Labber for" />
+
+            <EditText
+                android:id="@+id/edtChotrong2"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="4dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:imeOptions="actionNext"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:maxLength="1"
+                android:textColor="@color/common_google_signin_btn_text_dark"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edtChotrong3"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="4dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:imeOptions="actionNext"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:maxLength="1"
+                android:textColor="@color/common_google_signin_btn_text_dark"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edtChotrong4"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="4dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:imeOptions="actionNext"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:maxLength="1"
+                android:textColor="@color/common_google_signin_btn_text_dark"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edtChotrong5"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="4dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:imeOptions="actionNext"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:maxLength="1"
+                android:textColor="@color/common_google_signin_btn_text_dark"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/edtChotrong6"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="4dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:imeOptions="actionNext"
+                android:importantForAutofill="no"
+                android:inputType="number"
+                android:maxLength="1"
+                android:textColor="@color/common_google_signin_btn_text_dark"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnXacMinh"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:background="@color/colorPrimary"
+                android:text="Xác Minh"
+                android:textColor="#fff" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:padding="10dp"
-        android:id="@+id/tvAgainOTP"
-        android:text=" Send OTP Again"/>
+        android:layout_marginBottom="90dp"
+        android:orientation="vertical">
 
-    <EditText
+        <TextView
+            android:id="@+id/tvNhapLaiMaXacMinh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/g_i_l_i_m_x_c_minh"
+            android:textColor="@color/colorPrimary" />
+
+    </LinearLayout>
+
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorAccent"
-        android:text="18dp"
-        android:inputType="textPassword"
-        android:id="@+id/edtSendOTP"
-        android:hint=" Enter otp Code"/>
-    <Button
-        android:layout_width="match_parent"
-        android:id="@+id/btnSendVerifyPhoneNumber"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:textColor="@color/colorPrimaryDark"
-        android:text=" Tiep Tuc "/>
-
-
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:rotation="180"
+        android:src="@drawable/otpr" />
 </LinearLayout>
