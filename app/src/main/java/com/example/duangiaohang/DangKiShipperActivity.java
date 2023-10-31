@@ -214,18 +214,19 @@ public class DangKiShipperActivity extends AppCompatActivity {
                 inforShipper.setKhuVucGH(spKhuVucGiaoShipper.getSelectedItem().toString());
 //                infoShipper.setCMNDT(UriStrImg1);
 //                infoShipper.setCMNDS(UriStrImg2);
-                if (!kiemtraShipper()) {
+//                if (!kiemtraShipper()) {
                     // Tiếp tục đến màn hình tiếp theo
-                    Intent intent = new Intent(DangKiShipperActivity.this, VerifyPhoneNumberActivity.class);
+                    Intent intent = new Intent(context, VerifyPhoneNumberActivity.class);
                     intent.putExtra("inforShipper", inforShipper);
                     intent.putExtra("urifront", UriStrImg1Font);
                     intent.putExtra("uriback", UriStrImg2Back);
                     startActivity(intent);
-                } else {
-                    Toast.makeText(DangKiShipperActivity.this, "Thông tin không hợp lệ, vui lòng kiểm tra lại.", Toast.LENGTH_SHORT).show();
+                    finish();
+//                } else {
+//                    Toast.makeText(DangKiShipperActivity.this, "Thông tin không hợp lệ, vui lòng kiểm tra lại.", Toast.LENGTH_SHORT).show();
                 }
 
-            }
+//            }
 
         });
     }

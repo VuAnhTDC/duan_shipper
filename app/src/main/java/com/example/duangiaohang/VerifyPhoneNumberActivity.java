@@ -1,7 +1,6 @@
 package com.example.duangiaohang;
 
 
-
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -10,19 +9,27 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.helper.widget.MotionEffect;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.duangiaohang.Models.Shipper;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
@@ -31,10 +38,11 @@ import java.util.concurrent.TimeUnit;
 
 public class VerifyPhoneNumberActivity extends AppCompatActivity {
 
-    private static final int REQUEST_SMS = 1;
+
+    private static final int REQUEST_SMS_RECIVE = 2;
+    private static final int REQUEST_SMS_SEND = 1;
     Button btnXacMinh;
     TextView tvGuiLaiMaXacMinh;
-    private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     private Shipper inforshipper = new Shipper();
 
@@ -42,42 +50,96 @@ public class VerifyPhoneNumberActivity extends AppCompatActivity {
     EditText edtCho1, edtCho2, edtCho3, edtCho4, edtCho5, edtCho6;
 
 
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
     String verificationCode = "", codesms = "";
     String PhoneNumber;
 
     Uri uriFront, uriBack;
 
     PhoneAuthProvider.ForceResendingToken resendingToken;
-
+    //PhoneAuthCredential phoneAuthCredential = null;
+    private String EnterCode = "";
     Context context;
 
-  //  private static final String TAG = "VerifyPhoneNumberActivity";
+    //  private static final String TAG = "VerifyPhoneNumberActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_verify_phone_number);
         setControl();
+        setevent();
         // Nhận dữ liệu từ RegistrationActivity
         Intent intent = getIntent();
         inforshipper = (Shipper) intent.getSerializableExtra("inforShipper");
         UriStrImg1 = intent.getParcelableExtra("urifront");
         UriStrImg2 = intent.getParcelableExtra("uriback");
+
+
         if (ContextCompat.checkSelfPermission(VerifyPhoneNumberActivity.this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(VerifyPhoneNumberActivity.this, new String[]{Manifest.permission.SEND_SMS}, REQUEST_SMS);
+            ActivityCompat.requestPermissions(VerifyPhoneNumberActivity.this, new String[]{Manifest.permission.SEND_SMS}, REQUEST_SMS_SEND);
 
         }
-        else
-        {
+//        if (ContextCompat.checkSelfPermission(VerifyPhoneNumberActivity.this, Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED) {
+//            ActivityCompat.requestPermissions(VerifyPhoneNumberActivity.this, new String[]{Manifest.permission.RECEIVE_SMS}, REQUEST_SMS_RECIVE);
+//
+//        }
+        else {
             System.out.println("khong gui duoc ma ");
-            SendOTPSMS(PhoneNumber);
+            SendOTPSMS();
+            EnterCode = edtCho1.getText().toString() +
+                    edtCho2.getText().toString() +
+                    edtCho3.getText().toString() +
+                    edtCho4.getText().toString() +
+                    edtCho5.getText().toString() +
+                    edtCho6.getText().toString();
+
+            System.out.println(EnterCode);
 
         }
 
 
+    }
 
 
+    private void setevent() {
+        btnXacMinh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PhoneAuthCredential phoneAuthCredential = null;
+                if (edtCho1.getText().toString().trim().isEmpty() ||
+                        edtCho2.getText().toString().trim().isEmpty() ||
+                        edtCho3.getText().toString().trim().isEmpty() ||
+                        edtCho4.getText().toString().trim().isEmpty() ||
+                        edtCho5.getText().toString().trim().isEmpty() ||
+                        edtCho6.getText().toString().trim().isEmpty()) {
 
+                } else {
+                    System.out.println("Nhap otp: " + EnterCode);
+                    System.out.println("send otp: " + verificationCode);
+                    EnterCode =
+                            edtCho1.getText().toString() +
+                            edtCho2.getText().toString() +
+                            edtCho3.getText().toString() +
+                            edtCho4.getText().toString() +
+                            edtCho5.getText().toString() +
+                            edtCho6.getText().toString();
+
+                    System.out.println(EnterCode);
+
+                }
+                try {
+                    phoneAuthCredential = PhoneAuthProvider.getCredential(codesms, EnterCode);
+
+                } catch (Exception e) {
+                    System.out.println("Loi xác minh otp: " + e.getMessage());
+                }
+                if (phoneAuthCredential != null) {
+                    dangkyThanhCong(phoneAuthCredential);
+                }
+            }
+
+        });
     }
 
     private void setControl() {
@@ -90,45 +152,14 @@ public class VerifyPhoneNumberActivity extends AppCompatActivity {
         edtCho5 = findViewById(R.id.edtChotrong5);
         edtCho6 = findViewById(R.id.edtChotrong6);
 
-        btnXacMinh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (edtCho1.getText().toString().trim().isEmpty() ||
-                        edtCho2.getText().toString().trim().isEmpty() ||
-                        edtCho3.getText().toString().trim().isEmpty() ||
-                        edtCho4.getText().toString().trim().isEmpty() ||
-                        edtCho5.getText().toString().trim().isEmpty() ||
-                        edtCho6.getText().toString().trim().isEmpty()) {
-                    String Code = edtCho1.getText().toString() +
-                            edtCho2.getText().toString() +
-                            edtCho3.getText().toString() +
-                            edtCho4.getText().toString() +
-                            edtCho5.getText().toString() +
-                            edtCho6.getText().toString();
 
-                    String mVericationId = null;
-                    if (mVericationId != null) {
-                        btnXacMinh.setVisibility(View.INVISIBLE);
-                        PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(mVericationId, Code);
-                        FirebaseAuth.getInstance().signInWithCredential(phoneAuthCredential).addOnCompleteListener(task -> {
-                            btnXacMinh.setVisibility(View.VISIBLE);
-                            if (task.isSuccessful()) {
-                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                startActivity(intent);
-                            }
-                        });
-                    }
-                }
-            }
-        });
     }
 
-    void SendOTPSMS(String PhoneNumber) {
+    void SendOTPSMS() {
         System.out.println("lay ma otp");
         PhoneAuthOptions options = PhoneAuthOptions.newBuilder(mAuth)
-           //  .setPhoneNumber("+84" + inforshipper.getSdtS().substring(1))
-                 .setPhoneNumber("+84346008801")
+                .setPhoneNumber("+84" + inforshipper.getSdtS().substring(1))
+                //   .setPhoneNumber("+84346008801")
                 .setTimeout(60L, TimeUnit.SECONDS)
                 .setActivity(VerifyPhoneNumberActivity.this)
 
@@ -137,6 +168,7 @@ public class VerifyPhoneNumberActivity extends AppCompatActivity {
                     public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
                         verificationCode = phoneAuthCredential.getSmsCode();
                         System.out.println("otp: " + phoneAuthCredential.getSmsCode());
+
                     }
 
                     @Override
@@ -156,7 +188,6 @@ public class VerifyPhoneNumberActivity extends AppCompatActivity {
                     }
 
 
-
                     @Override
                     public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
                         super.onCodeSent(s, forceResendingToken);
@@ -171,35 +202,33 @@ public class VerifyPhoneNumberActivity extends AppCompatActivity {
 
     }
 
-//    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
-//        mAuth.signInWithCredential(credential)
-//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        if (task.isSuccessful()) {
-//                            // Sign in success, update UI with the signed-in user's information
-//                            Log.e(TAG, "signInWithCredential:success");
-//
-//                            FirebaseUser user = task.getResult().getUser();
-//                            gotoMainShipperActivity(user.getPhoneNumber());
-//                            // Update UI
-//                        } else {
-//                            // Sign in failed, display a message and update the UI
-//                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-//                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-//                                // The verification code entered was invalid
-//                            }
-//                        }
-//                    }
-//                });
-//    }
-//
-//    private void gotoMainShipperActivity(String phoneNumber) {
-//        Intent intent = new Intent(this, MainActivity.class);
-//        intent.putExtra("Phone Number", phoneNumber);
-//        startActivity(intent);
-//    }
-//
+    /////////////////////ĐĂNG KÝ THÀNH CÔNG///////////////////////////
+
+    void dangkyThanhCong(PhoneAuthCredential phoneAuthCredential){
+        mAuth.signInWithCredential(phoneAuthCredential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task)
+                    {if (task.isSuccessful()) {
+                        Toast.makeText(context, "Xác minh tài khoản thành công!", Toast.LENGTH_SHORT).show();
+                        //////////////////////// CHUYỂN SANG MÀN HÌNH LOGIN ////////////////////////
+                        Intent intent = new Intent(context, DangNhapShipperActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Toast.makeText(VerifyPhoneNumberActivity.this, "Sai mã OTP. Vui lòng thử lại!!!", Toast.LENGTH_SHORT).show();
+                    }
+                    }
+                });
+    }
+
+    //
+    private void gotoMainShipperActivity(String phoneNumber) {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("Phone Number", phoneNumber);
+        startActivity(intent);
+    }
+
 //    private void gotoEnterPhoneNumberActivity(String strPhoneNumber, String vericationId) {
 //        Intent intent = new Intent(this, VerifyPhoneNumberActivity.class);
 //        intent.putExtra("Verication Id", strPhoneNumber);
