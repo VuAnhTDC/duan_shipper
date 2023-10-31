@@ -1,11 +1,13 @@
 package com.example.duangiaohang;
 
-import static java.util.concurrent.TimeUnit.SECONDS;
 
+
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +17,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.example.duangiaohang.Models.Shipper;
 import com.google.firebase.FirebaseException;
@@ -23,8 +27,11 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 
+import java.util.concurrent.TimeUnit;
+
 public class VerifyPhoneNumberActivity extends AppCompatActivity {
 
+    private static final int REQUEST_SMS = 1;
     Button btnXacMinh;
     TextView tvGuiLaiMaXacMinh;
     private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -56,7 +63,20 @@ public class VerifyPhoneNumberActivity extends AppCompatActivity {
         inforshipper = (Shipper) intent.getSerializableExtra("inforShipper");
         UriStrImg1 = intent.getParcelableExtra("urifront");
         UriStrImg2 = intent.getParcelableExtra("uriback");
-        SendOTPSMS(PhoneNumber);
+        if (ContextCompat.checkSelfPermission(VerifyPhoneNumberActivity.this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(VerifyPhoneNumberActivity.this, new String[]{Manifest.permission.SEND_SMS}, REQUEST_SMS);
+
+        }
+        else
+        {
+            System.out.println("khong gui duoc ma ");
+            SendOTPSMS(PhoneNumber);
+
+        }
+
+
+
+
 
     }
 
@@ -107,9 +127,9 @@ public class VerifyPhoneNumberActivity extends AppCompatActivity {
     void SendOTPSMS(String PhoneNumber) {
         System.out.println("lay ma otp");
         PhoneAuthOptions options = PhoneAuthOptions.newBuilder(mAuth)
-          //    .setPhoneNumber("+84" + inforshipper.getSdtS().substring(1))
+           //  .setPhoneNumber("+84" + inforshipper.getSdtS().substring(1))
                  .setPhoneNumber("+84346008801")
-                .setTimeout(60L, SECONDS)
+                .setTimeout(60L, TimeUnit.SECONDS)
                 .setActivity(VerifyPhoneNumberActivity.this)
 
                 .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
@@ -123,6 +143,7 @@ public class VerifyPhoneNumberActivity extends AppCompatActivity {
                     public void onVerificationFailed(@NonNull FirebaseException e) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(VerifyPhoneNumberActivity.this);
                         builder.setTitle("Thông báo");
+                        builder.setMessage("Đã xảy ra lỗi trong quá trình gửi mã OTP: " + e.getMessage());
                         builder.setMessage("Xảy ra lỗi trong quá trình gửi mã OTP");
                         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
