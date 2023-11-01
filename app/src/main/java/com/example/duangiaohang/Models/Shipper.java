@@ -1,121 +1,151 @@
 package com.example.duangiaohang.Models;
 
-import android.provider.ContactsContract;
-
 import java.io.Serializable;
 
 public class Shipper implements Serializable {
-    private String IdS;
-    private String hoTenS;
-    private String EmailS;
-    private String sdtS;
-    private String diaChiS;
-    private String nguyenQuans;
-    private String khuVucGH;
-    private String CMNDT;
-    private String CMNDS;
+    private int status;
+    private String idShipper;
+    private String passwordShipper;
+
+    public void setPasswordShipper(String passwordShipper) {
+        this.passwordShipper = passwordShipper;
+    }
+
+    private String hoTenShipper;
+    private String emailShipper;
+    private String sdtShipper;
+    private String diaChiShipper;
+    private String nguyenQuanShipper;
+    private String khuVucGHShipper;
+
+    public String getPasswordShipper() {
+        return passwordShipper;
+    }
+
+    public String getMatsauCCCD() {
+        return matsauCCCD;
+    }
+
+    public void setMatsauCCCD(String matsauCCCD) {
+        this.matsauCCCD = matsauCCCD;
+    }
+
+    private String matTruocCCCD;
+    private String matsauCCCD;
+    private String  urlImgShopAvatar;
 
     public Shipper() {
-    }
-
-    public Shipper(String idS, String hoTenS, String emailS, String sdtS, String diaChiS, String nguyenQuans, String khuVucGH, String CMNDT, String CMNDS) {
-        IdS = idS;
-        this.hoTenS = hoTenS;
-        EmailS = emailS;
-        this.sdtS = sdtS;
-        this.diaChiS = diaChiS;
-        this.nguyenQuans = nguyenQuans;
-        this.khuVucGH = khuVucGH;
-        this.CMNDT = CMNDT;
-        this.CMNDS = CMNDS;
-    }
-
-
-
-    public String getIdS() {
-        return IdS;
-    }
-
-    public void setIdS(String idS) {
-        IdS = idS;
-    }
-
-    public String getHoTenS() {
-        return hoTenS;
-    }
-
-    public void setHoTenS(String hoTenS) {
-        this.hoTenS = hoTenS;
-    }
-
-    public String getEmailS() {
-        return EmailS;
-    }
-
-    public void setEmailS(String emailS) {
-        EmailS = emailS;
-    }
-
-    public String getSdtS() {
-        return sdtS;
-    }
-
-    public void setSdtS(String sdtS) {
-        this.sdtS = sdtS;
-    }
-
-    public String getDiaChiS() {
-        return diaChiS;
-    }
-
-    public void setDiaChiS(String diaChiS) {
-        this.diaChiS = diaChiS;
-    }
-
-    public String getNguyenQuans() {
-        return nguyenQuans;
-    }
-
-    public void setNguyenQuans(String nguyenQuans) {
-        this.nguyenQuans = nguyenQuans;
-    }
-
-    public String getKhuVucGH() {
-        return khuVucGH;
-    }
-
-    public void setKhuVucGH(String khuVucGH) {
-        this.khuVucGH = khuVucGH;
-    }
-
-    public String getCMNDT() {
-        return CMNDT;
-    }
-
-    public void setCMNDT(String CMNDT) {
-        this.CMNDT = CMNDT;
-    }
-
-    public String getCMNDS() {
-        return CMNDS;
-    }
-
-    public void setCMNDS(String CMNDS) {
-        this.CMNDS = CMNDS;
+        this.idShipper = sdtShipper;
+        this.status = 0;
+        this.passwordShipper = null;
     }
 
     @Override
     public String toString() {
         return "Shipper{" +
-                "IdS='" + IdS + '\'' +
-                ", hoTenS='" + hoTenS + '\'' +
-                ", EmailS='" + EmailS + '\'' +
-                ", sdtS='" + sdtS + '\'' +
-                ", diaChiS='" + diaChiS + '\'' +
-                ", nguyenQuans='" + nguyenQuans + '\'' +
-                ", khuVucGH='" + khuVucGH + '\'' +
-                ", CMNDT='" + CMNDT + '\'' +
-                ", CMNDS='" + CMNDS + '\'' +
+                "status=" + status +
+                ", idShipper='" + idShipper + '\'' +
+                ", passwordShipper='" + passwordShipper + '\'' +
+                ", hoTenShipper='" + hoTenShipper + '\'' +
+                ", emailShipper='" + emailShipper + '\'' +
+                ", sdtShipper='" + sdtShipper + '\'' +
+                ", diaChiShipper='" + diaChiShipper + '\'' +
+                ", nguyenQuanShipper='" + nguyenQuanShipper + '\'' +
+                ", khuVucGHShipper='" + khuVucGHShipper + '\'' +
+                ", matTruocCCCD='" + matTruocCCCD + '\'' +
+                ", urlImgShopAvatar='" + urlImgShopAvatar + '\'' +
                 '}';
     }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public String getIdShipper() {
+        return idShipper;
+    }
+
+    public void setIdShipper(String idShipper) {
+        this.idShipper = idShipper;
+    }
+
+    public String getHoTenShipper() {
+        return hoTenShipper;
+    }
+
+    public void setHoTenShipper(String hoTenShipper) {
+        this.hoTenShipper = hoTenShipper;
+    }
+
+    public String getEmailShipper() {
+        return emailShipper;
+    }
+
+    public void setEmailShipper(String emailShipper) {
+        this.emailShipper = emailShipper;
+    }
+
+    public String getSdtShipper() {
+        return sdtShipper;
+    }
+
+    public void setSdtShipper(String sdtShipper) {
+        this.sdtShipper = sdtShipper;
+    }
+
+    public String getDiaChiShipper() {
+        return diaChiShipper;
+    }
+
+    public void setDiaChiShipper(String diaChiShipper) {
+        this.diaChiShipper = diaChiShipper;
+    }
+
+    public String getNguyenQuanShipper() {
+        return nguyenQuanShipper;
+    }
+
+    public void setNguyenQuanShipper(String nguyenQuanShipper) {
+        this.nguyenQuanShipper = nguyenQuanShipper;
+    }
+
+    public String getKhuVucGHShipper() {
+        return khuVucGHShipper;
+    }
+
+    public void setKhuVucGHShipper(String khuVucGHShipper) {
+        this.khuVucGHShipper = khuVucGHShipper;
+    }
+
+    public String getMatTruocCCCD() {
+        return matTruocCCCD;
+    }
+
+    public void setMatTruocCCCD(String matTruocCCCD) {
+        this.matTruocCCCD = matTruocCCCD;
+    }
+
+    public String getUrlImgShopAvatar() {
+        return urlImgShopAvatar;
+    }
+
+    public void setUrlImgShopAvatar(String urlImgShopAvatar) {
+        this.urlImgShopAvatar = urlImgShopAvatar;
+    }
+
+    public Shipper( String hoTenShipper, String emailShipper, String sdtShipper, String diaChiShipper, String nguyenQuanShipper, String khuVucGHShipper) {
+
+        this.hoTenShipper = hoTenShipper;
+        this.emailShipper = emailShipper;
+        this.sdtShipper = sdtShipper;
+        this.diaChiShipper = diaChiShipper;
+        this.nguyenQuanShipper = nguyenQuanShipper;
+        this.khuVucGHShipper = khuVucGHShipper;
+
+    }
+
 }

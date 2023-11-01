@@ -1,6 +1,8 @@
 package com.example.duangiaohang;
 
 
+import static android.content.Intent.ACTION_PICK;
+
 import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,21 +13,20 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import com.example.duangiaohang.Models.Shipper;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,15 +40,18 @@ import java.util.List;
 
 
 public class DangKiShipperActivity extends AppCompatActivity {
-    private static final int REQUEST_IMAGE_PICKER = 2;
-    private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int REQUEST_IMAGE_PICKER = 1;
+
+    private static final int PICK_IMAGE_FRONT = 1;
+    private static final int PICK_IMAGE_BACK = 2;
+    private static final int REQUEST_CODE =1 ;
 
     private String mPhoneNumber;
     private String mVericationId;
     private FirebaseAuth mAuth;
     private PhoneAuthProvider.ForceResendingToken mForceResendingToken;
 
-    private static final int REQUEST_PICK_IMAGE = 2;
+
 
 
     TextView tvDangKiGiaoHangShipper;
@@ -61,8 +65,8 @@ public class DangKiShipperActivity extends AppCompatActivity {
 
     private Context context;
     private int requestCode;
-    private static String UriStrImg1Font = null;
-    private static final String UriStrImg2Back = null;
+    Uri UriStrImage1T = null;
+    Uri  UriStrImage2S = null;
     private String Code;
 
     public DangKiShipperActivity() {
@@ -73,9 +77,9 @@ public class DangKiShipperActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_dang_ki_shipper);
+        context  = this;
         setControl();
         setEvent();
-
 
         // Khởi tạo danh sách của spiner các lựa chọn
         List<String> options = new ArrayList<>();
@@ -174,13 +178,14 @@ public class DangKiShipperActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (ContextCompat.checkSelfPermission(DangKiShipperActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(DangKiShipperActivity.this, new String[]{Manifest.permission.CAMERA}, REQUEST_IMAGE_CAPTURE);
-                }
-                if (ContextCompat.checkSelfPermission(DangKiShipperActivity.this, Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(DangKiShipperActivity.this, new String[]{Manifest.permission.READ_MEDIA_IMAGES}, REQUEST_IMAGE_PICKER);
+//                if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+//                    requestPermissions(new String[]{Manifest.permission.CAMERA}, REQUEST_IMAGE_CAPTURE);
+//                }
+                if (checkSelfPermission(Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
+                    requestPermissions(new String[]{Manifest.permission.READ_MEDIA_IMAGES}, REQUEST_IMAGE_PICKER);
                 } else {
-                    showImageSourceDialog();
+
+                    openGallery(PICK_IMAGE_FRONT);
                 }
             }
         });
@@ -188,14 +193,15 @@ public class DangKiShipperActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                if (ContextCompat.checkSelfPermission(DangKiShipperActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(DangKiShipperActivity.this, new String[]{Manifest.permission.CAMERA}, REQUEST_IMAGE_CAPTURE);
-                }
-                if (ContextCompat.checkSelfPermission(DangKiShipperActivity.this, Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(DangKiShipperActivity.this, new String[]{Manifest.permission.READ_MEDIA_IMAGES}, REQUEST_IMAGE_PICKER);
+//                if (checkSelfPermission( Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+//                    requestPermissions( new String[]{Manifest.permission.CAMERA}, REQUEST_IMAGE_CAPTURE);
+//                }
+                if (checkSelfPermission(Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
+                    requestPermissions( new String[]{Manifest.permission.READ_MEDIA_IMAGES}, REQUEST_IMAGE_PICKER);
                 } else {
 
-                    showImageSourceDialog();
+                   // showImageSourceDialog();
+                    openGallery(PICK_IMAGE_BACK);
 
                 }
             }
@@ -206,20 +212,20 @@ public class DangKiShipperActivity extends AppCompatActivity {
 
                 // Tạo một đối tượng Shipper và điền dữ liệu
                 Shipper inforShipper = new Shipper();
-                inforShipper.setSdtS(edtSoDienThoaiShipper.getText().toString()); // Sử dụng số điện thoại làm ID
-                inforShipper.setHoTenS(edtHoVaTen.getText().toString());
-                inforShipper.setEmailS(edtEmailNguoiShipper.getText().toString());
-                inforShipper.setDiaChiS(edtDiaChiThuongTruShipper.getText().toString());
-                inforShipper.setNguyenQuans(edtNguyenQuanShipper.getText().toString());
-                inforShipper.setKhuVucGH(spKhuVucGiaoShipper.getSelectedItem().toString());
+                inforShipper.setSdtShipper(edtSoDienThoaiShipper.getText().toString()); // Sử dụng số điện thoại làm ID
+                inforShipper.setHoTenShipper(edtHoVaTen.getText().toString());
+                inforShipper.setEmailShipper(edtEmailNguoiShipper.getText().toString());
+                inforShipper.setDiaChiShipper(edtDiaChiThuongTruShipper.getText().toString());
+                inforShipper.setNguyenQuanShipper(edtNguyenQuanShipper.getText().toString());
+                inforShipper.setKhuVucGHShipper(spKhuVucGiaoShipper.getSelectedItem().toString());
 //                infoShipper.setCMNDT(UriStrImg1);
 //                infoShipper.setCMNDS(UriStrImg2);
 //                if (!kiemtraShipper()) {
                     // Tiếp tục đến màn hình tiếp theo
                     Intent intent = new Intent(context, VerifyPhoneNumberActivity.class);
                     intent.putExtra("inforShipper", inforShipper);
-                    intent.putExtra("urifront", UriStrImg1Font);
-                    intent.putExtra("uriback", UriStrImg2Back);
+                    intent.putExtra("urifront",UriStrImage1T);
+                    intent.putExtra("uriback", UriStrImage2S);
                     startActivity(intent);
                     finish();
 //                } else {
@@ -251,65 +257,93 @@ public class DangKiShipperActivity extends AppCompatActivity {
 
     }
 
-
-    private void showImageSourceDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Choose Image Source");
-        builder.setItems(new CharSequence[]{"Camera", "Gallery"}, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which) {
-                    case 0:
-                        openCamera();
-                        break;
-                    case 1:
-                        openGallery();
-                        break;
-                }
-            }
-        });
-        builder.show();
-    }
-
-    private void openCamera() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-        }
-    }
-
-    private void openGallery() {
-        Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        if (pickPhoto.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(pickPhoto, REQUEST_PICK_IMAGE);
-        }
-    }
+    //Hàm chọn ảnh từ thư viện
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
-            assert imageBitmap != null;
-            UriStrImg1Font = convertImageToString(imageBitmap);
-            imgLoadMatTruoc.setImageBitmap(imageBitmap);
-        } else if (requestCode == REQUEST_PICK_IMAGE && resultCode == RESULT_OK) {
-
-            assert data != null;
-            Uri UriStrImg2Back = data.getData();
-            imgLoadMatSau.setImageURI(UriStrImg2Back);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == PICK_IMAGE_FRONT) {
+                // Xử lý khi chọn ảnh cho mặt trước
+                UriStrImage1T = data.getData();
+                imgLoadMatTruoc.setImageURI(UriStrImage1T);
+            } else if (requestCode == PICK_IMAGE_BACK) {
+                // Xử lý khi chọn ảnh cho mặt sau
+                UriStrImage2S = data.getData();
+                imgLoadMatSau.setImageURI(UriStrImage2S);
+            }
         }
-
+    }
+    //Sự kiện ẩn bàn phím
+    private void hideKeyboard() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
-    private String convertImageToString(Bitmap imageBitmap) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos); // Chuyển hình ảnh thành mảng bytes
-        byte[] imageBytes = baos.toByteArray();
+//
 
-        return Base64.encodeToString(imageBytes, Base64.DEFAULT); // Mã hóa mảng bytes thành chuỗi
+
+//    private void showImageSourceDialog() {
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setTitle("Choose Image Source");
+//        builder.setItems(new CharSequence[]{"Camera", "Gallery"}, new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                switch (which) {
+//                    case 0:
+//                        openCamera();
+//                        break;
+//                    case 1:
+//                        openGallery();
+//                        break;
+//                }
+//            }
+//        });
+//        builder.show();
+//    }
+
+//    private void openCamera() {
+//       // Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//        Intent takePictureIntent = new Intent(ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+//            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+//        }
+//    }
+
+    private void openGallery(int requestCode) {
+        Intent pickPhoto = new Intent(ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//        if (pickPhoto.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(pickPhoto, requestCode);
+        //}
     }
+//
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        Log.d("loi image", "Call ");
+//        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+//
+//            Uri UriStrImage1T = data.getData();
+//            imgLoadMatSau.setImageURI(UriStrImage1T);;
+//        } else if (requestCode == REQUEST_PICK_IMAGE && resultCode == RESULT_OK) {
+//
+//
+//            Uri UriStrImage2S = data.getData();
+//            imgLoadMatSau.setImageURI(UriStrImage2S);
+//        }
+//
+//    }
+
+//    private String convertImageToString(Bitmap imageBitmap) {
+//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos); // Chuyển hình ảnh thành mảng bytes
+//        byte[] imageBytes = baos.toByteArray();
+//
+//        return Base64.encodeToString(imageBytes, Base64.DEFAULT); // Mã hóa mảng bytes thành chuỗi
+//    }
 
     private void setControl() {
 
