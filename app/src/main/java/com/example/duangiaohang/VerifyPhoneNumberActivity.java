@@ -1,14 +1,13 @@
 package com.example.duangiaohang;
 
 
-import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,11 +17,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import com.example.duangiaohang.Class.ShowMessage;
-import com.example.duangiaohang.Models.Shipper;
 import com.example.duangiaohang.Models.ShipperData;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -51,9 +47,8 @@ public class VerifyPhoneNumberActivity extends AppCompatActivity {
     TextView tvGuiLaiMaXacMinh;
 
 
-
-   Uri UriStrImage1T = null;
-   Uri UriStrImage2S = null;
+    Uri UriStrImage1T = null;
+    Uri UriStrImage2S = null;
     EditText edtCho1, edtCho2, edtCho3, edtCho4, edtCho5, edtCho6;
 
 
@@ -63,11 +58,10 @@ public class VerifyPhoneNumberActivity extends AppCompatActivity {
 
     Uri uriFront, uriBack;
 
-    PhoneAuthProvider.ForceResendingToken resendingToken;
     //PhoneAuthCredential phoneAuthCredential = null;
     private String EnterCode = "";
     Context context;
-    private ShipperData shipperData  = new ShipperData();
+    private ShipperData shipperData = new ShipperData();
 
 
     //  private static final String TAG = "VerifyPhoneNumberActivity";
@@ -76,36 +70,17 @@ public class VerifyPhoneNumberActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_verify_phone_number);
-        context  = this;
+        context = this;
         setControl();
         setevent();
         // Nhận dữ liệu từ RegistrationActivity
         Intent intent = getIntent();
-        shipperData = (ShipperData) intent.getSerializableExtra("inforShipper");
+        shipperData = (ShipperData) intent.getSerializableExtra("shipperData");
+        UriStrImage1T = intent.getParcelableExtra("urifront");
+        UriStrImage2S = intent.getParcelableExtra("uriback");
 
-        UriStrImage1T =  intent.getParcelableExtra("urifront");
-        UriStrImage2S =  intent.getParcelableExtra("uriback");
         SendOTPSMS();
 
-
-//        if (ContextCompat.checkSelfPermission(VerifyPhoneNumberActivity.this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
-//            ActivityCompat.requestPermissions(VerifyPhoneNumberActivity.this, new String[]{Manifest.permission.SEND_SMS}, REQUEST_SMS_SEND);
-//
-//        }
-//
-//        else {
-//            System.out.println("khong gui duoc ma ");
-//            SendOTPSMS();
-//            EnterCode = edtCho1.getText().toString() +
-//                    edtCho2.getText().toString() +
-//                    edtCho3.getText().toString() +
-//                    edtCho4.getText().toString() +
-//                    edtCho5.getText().toString() +
-//                    edtCho6.getText().toString();
-//
-//            System.out.println(EnterCode);
-//
-//        }
 
 
     }
@@ -128,11 +103,11 @@ public class VerifyPhoneNumberActivity extends AppCompatActivity {
                     System.out.println("send otp: " + verificationCode);
                     EnterCode =
                             edtCho1.getText().toString() +
-                            edtCho2.getText().toString() +
-                            edtCho3.getText().toString() +
-                            edtCho4.getText().toString() +
-                            edtCho5.getText().toString() +
-                            edtCho6.getText().toString();
+                                    edtCho2.getText().toString() +
+                                    edtCho3.getText().toString() +
+                                    edtCho4.getText().toString() +
+                                    edtCho5.getText().toString() +
+                                    edtCho6.getText().toString();
 
                     System.out.println(EnterCode);
 
@@ -164,7 +139,7 @@ public class VerifyPhoneNumberActivity extends AppCompatActivity {
 
     }
 
-    void registration(){
+    void registration() {
         shipperData.setUrlImgShopAvatar("");
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference shopReference = firebaseDatabase.getReference("Shipper");
@@ -183,18 +158,18 @@ public class VerifyPhoneNumberActivity extends AppCompatActivity {
         uploadTask.addOnCompleteListener(taskSnapshot -> {
             imgRef.getDownloadUrl().addOnSuccessListener(uri -> {
                 shipperData.setUrlmatTruocCCCD(uri.toString());
-               UpLoadCCCDMatSau();
+                UpLoadCCCDMatSau();
 
             }).addOnFailureListener(e -> {
-                Toast.makeText(context, "Lỗi khi tải ảnh lên" + e.getMessage() , Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Lỗi khi tải ảnh lên" + e.getMessage(), Toast.LENGTH_SHORT).show();
             });
         });
     }
 
-    void UpLoadCCCDMatSau(){
+    void UpLoadCCCDMatSau() {
         StorageReference storageRef = FirebaseStorage.getInstance().getReference();
         String[] part = UriStrImage2S.getLastPathSegment().split("/");
-        StorageReference imgRef = storageRef.child("ImageShipper/" + shipperData.getSdtShipper() + "/" + (part[part.length-1]));
+        StorageReference imgRef = storageRef.child("ImageShipper/" + shipperData.getSdtShipper() + "/" + (part[part.length - 1]));
         UploadTask uploadTask = imgRef.putFile(UriStrImage2S);
         uploadTask.addOnCompleteListener(taskSnapshot -> {
             imgRef.getDownloadUrl().addOnSuccessListener(uri -> {
@@ -203,7 +178,7 @@ public class VerifyPhoneNumberActivity extends AppCompatActivity {
             }).addOnFailureListener(e -> {
 
 
-                ShowMessage.showMessage("Lỗi khi tải ảnh lên: "+ e);
+                ShowMessage.showMessage("Lỗi khi tải ảnh lên: " + e);
             });
         });
     }
@@ -255,7 +230,8 @@ public class VerifyPhoneNumberActivity extends AppCompatActivity {
 //        PhoneAuthProvider.verifyPhoneNumber(options);
 
         PhoneAuthOptions options = PhoneAuthOptions.newBuilder(mAuth)
-                .setPhoneNumber("+84"+shipperData.getSdtShipper().substring(1))
+                .setPhoneNumber("+84" + shipperData.getSdtShipper().substring(1))
+
                 .setTimeout(60L, TimeUnit.SECONDS)
                 .setActivity(this)
                 .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
@@ -263,6 +239,7 @@ public class VerifyPhoneNumberActivity extends AppCompatActivity {
                     public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
                         verificationCode = phoneAuthCredential.getSmsCode();
                     }
+
                     @Override
                     public void onVerificationFailed(@NonNull FirebaseException e) {
                         System.out.println("loi: " + e.getMessage());
@@ -278,42 +255,39 @@ public class VerifyPhoneNumberActivity extends AppCompatActivity {
                         AlertDialog alertDialog = builder.create();
                         alertDialog.show();
                     }
+
                     @Override
                     public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
                         super.onCodeSent(s, forceResendingToken);
                         codesms = s;
-                        System.out.println("s"+s);
+                        System.out.println("s" + s);
+                        Log.d("ma cua ban ", s);
                     }
                 })
                 .build();
         PhoneAuthProvider.verifyPhoneNumber(options);
 
 
-
     }
 
     /////////////////////ĐĂNG KÝ THÀNH CÔNG///////////////////////////
 
-    void dangkyThanhCong(PhoneAuthCredential phoneAuthCredential){
+    void dangkyThanhCong(PhoneAuthCredential phoneAuthCredential) {
         mAuth.signInWithCredential(phoneAuthCredential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task)
-                    {if (task.isSuccessful()) {
-                        Toast.makeText(context, "Xác minh tài khoản thành công!", Toast.LENGTH_SHORT).show();
-                        UpLoadCCCDMatTruoc();
-                        //////////////////////// CHUYỂN SANG MÀN HÌNH LOGIN ////////////////////////
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(context, "Xác minh tài khoản thành công!", Toast.LENGTH_SHORT).show();
+                            UpLoadCCCDMatTruoc();
+                            //////////////////////// CHUYỂN SANG MÀN HÌNH LOGIN ////////////////////////
 
-                    } else {
-                        Toast.makeText(VerifyPhoneNumberActivity.this, "Sai mã OTP. Vui lòng thử lại!!!", Toast.LENGTH_SHORT).show();
-                    }
+                        } else {
+                            Toast.makeText(VerifyPhoneNumberActivity.this, "Sai mã OTP. Vui lòng thử lại!!!", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
     }
-
-
-
-
 
 
 }

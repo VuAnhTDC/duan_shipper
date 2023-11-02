@@ -4,16 +4,14 @@ package com.example.duangiaohang;
 import static android.content.Intent.ACTION_PICK;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Base64;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -25,16 +23,13 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AlertDialog;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.duangiaohang.Models.Shipper;
+import com.example.duangiaohang.Models.ShipperData;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthProvider;
 
-import org.jetbrains.annotations.Nullable;
-
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,7 +74,10 @@ public class DangKiShipperActivity extends AppCompatActivity {
         setContentView(R.layout.layout_dang_ki_shipper);
         context  = this;
         setControl();
+
         setEvent();
+
+
 
         // Khởi tạo danh sách của spiner các lựa chọn
         List<String> options = new ArrayList<>();
@@ -92,6 +90,7 @@ public class DangKiShipperActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, options);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spKhuVucGiaoShipper.setAdapter(adapter);
+
 
 
     }
@@ -175,6 +174,7 @@ public class DangKiShipperActivity extends AppCompatActivity {
             }
         });
         imgLoadMatTruoc.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
             @Override
             public void onClick(View view) {
 
@@ -191,6 +191,7 @@ public class DangKiShipperActivity extends AppCompatActivity {
         });
         imgLoadMatSau.setOnClickListener(new View.OnClickListener() {
 
+            @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
             @Override
             public void onClick(View view) {
 //                if (checkSelfPermission( Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
@@ -211,19 +212,18 @@ public class DangKiShipperActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 // Tạo một đối tượng Shipper và điền dữ liệu
-                Shipper inforShipper = new Shipper();
-                inforShipper.setSdtShipper(edtSoDienThoaiShipper.getText().toString()); // Sử dụng số điện thoại làm ID
-                inforShipper.setHoTenShipper(edtHoVaTen.getText().toString());
-                inforShipper.setEmailShipper(edtEmailNguoiShipper.getText().toString());
-                inforShipper.setDiaChiShipper(edtDiaChiThuongTruShipper.getText().toString());
-                inforShipper.setNguyenQuanShipper(edtNguyenQuanShipper.getText().toString());
-                inforShipper.setKhuVucGHShipper(spKhuVucGiaoShipper.getSelectedItem().toString());
-//                infoShipper.setCMNDT(UriStrImg1);
-//                infoShipper.setCMNDS(UriStrImg2);
+               ShipperData shipperData = new ShipperData();
+                shipperData.setSdtShipper(edtSoDienThoaiShipper.getText().toString()); // Sử dụng số điện thoại làm ID
+                shipperData.setHoTenShipper(edtHoVaTen.getText().toString());
+                shipperData.setEmailShipper(edtEmailNguoiShipper.getText().toString());
+                shipperData.setDiaChiShipper(edtDiaChiThuongTruShipper.getText().toString());
+                shipperData.setNguyenQuanShipper(edtNguyenQuanShipper.getText().toString());
+                shipperData.setKhuVucGHShipper(spKhuVucGiaoShipper.getSelectedItem().toString());
+
 //                if (!kiemtraShipper()) {
                     // Tiếp tục đến màn hình tiếp theo
                     Intent intent = new Intent(context, VerifyPhoneNumberActivity.class);
-                    intent.putExtra("inforShipper", inforShipper);
+                    intent.putExtra("shipperData", shipperData);
                     intent.putExtra("urifront",UriStrImage1T);
                     intent.putExtra("uriback", UriStrImage2S);
                     startActivity(intent);
@@ -285,65 +285,14 @@ public class DangKiShipperActivity extends AppCompatActivity {
 
 //
 
-
-//    private void showImageSourceDialog() {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        builder.setTitle("Choose Image Source");
-//        builder.setItems(new CharSequence[]{"Camera", "Gallery"}, new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                switch (which) {
-//                    case 0:
-//                        openCamera();
-//                        break;
-//                    case 1:
-//                        openGallery();
-//                        break;
-//                }
-//            }
-//        });
-//        builder.show();
-//    }
-
-//    private void openCamera() {
-//       // Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//        Intent takePictureIntent = new Intent(ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-//            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-//        }
-//    }
-
+    @SuppressLint("QueryPermissionsNeeded")
     private void openGallery(int requestCode) {
         Intent pickPhoto = new Intent(ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//        if (pickPhoto.resolveActivity(getPackageManager()) != null) {
+     if (null != pickPhoto.resolveActivity(getPackageManager())) {
             startActivityForResult(pickPhoto, requestCode);
-        //}
+        }
     }
-//
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        Log.d("loi image", "Call ");
-//        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-//
-//            Uri UriStrImage1T = data.getData();
-//            imgLoadMatSau.setImageURI(UriStrImage1T);;
-//        } else if (requestCode == REQUEST_PICK_IMAGE && resultCode == RESULT_OK) {
-//
-//
-//            Uri UriStrImage2S = data.getData();
-//            imgLoadMatSau.setImageURI(UriStrImage2S);
-//        }
-//
-//    }
 
-//    private String convertImageToString(Bitmap imageBitmap) {
-//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos); // Chuyển hình ảnh thành mảng bytes
-//        byte[] imageBytes = baos.toByteArray();
-//
-//        return Base64.encodeToString(imageBytes, Base64.DEFAULT); // Mã hóa mảng bytes thành chuỗi
-//    }
 
     private void setControl() {
 
