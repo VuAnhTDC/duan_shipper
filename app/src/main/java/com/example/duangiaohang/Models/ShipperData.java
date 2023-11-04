@@ -16,6 +16,26 @@ public class ShipperData implements Serializable {
     private String passWordShipper;
     private String  urlImgShopAvatar;
 
+
+    public String getUrlImgShopAvatar() {
+        return urlImgShopAvatar;
+    }
+
+    public ShipperData(int status, String idShipper, String hoTenShipper, String emailShipper, String sdtShipper, String diaChiShipper, String nguyenQuanShipper, String khuVucGHShipper, String urlmatTruocCCCD, String urlmatSauCCCD, String passWordShipper, String urlImgShopAvatar) {
+        this.status = status;
+        this.idShipper = idShipper;
+        this.hoTenShipper = hoTenShipper;
+        this.emailShipper = emailShipper;
+        this.sdtShipper = sdtShipper;
+        this.diaChiShipper = diaChiShipper;
+        this.nguyenQuanShipper = nguyenQuanShipper;
+        this.khuVucGHShipper = khuVucGHShipper;
+        this.urlmatTruocCCCD = urlmatTruocCCCD;
+        this.urlmatSauCCCD = urlmatSauCCCD;
+        this.passWordShipper = passWordShipper;
+        this.urlImgShopAvatar = urlImgShopAvatar;
+    }
+
     public ShipperData() {
 
             this.sdtShipper = sdtShipper;
@@ -127,9 +147,7 @@ public class ShipperData implements Serializable {
         this.passWordShipper = passWordShipper;
     }
 
-    public String getUrlImgShopAvatar() {
-        return urlImgShopAvatar;
-    }
+
 
     public void setUrlImgShopAvatar(String urlImgShopAvatar) {
         this.urlImgShopAvatar = urlImgShopAvatar;
