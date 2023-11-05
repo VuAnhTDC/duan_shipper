@@ -7,4 +7,8 @@
     <string name="quy_tr_nh_g_i_m_c_th_m_t_v_i_ph_t">Quy Trình Gửi Mã Có Thể Mất Vài Phút</string>
     <string name="x_c_nh_n_otp">Xác Nhận OTP</string>
     <string name="g_i_l_i_m_x_c_minh">Gửi lại mã xác minh?</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ch_a_giao">Chưa Giao</string>
+    <string name="giao_sau">Giao Sau</string>
 </resources>

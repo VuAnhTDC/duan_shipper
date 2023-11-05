@@ -25,7 +25,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission
         android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="29" /> <!-- Devices running Android 12L (API level 32) or lower -->
+        android:maxSdkVersion="29"
+        tools:ignore="ScopedStorage" /> <!-- Devices running Android 12L (API level 32) or lower -->
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.SEND_SMS" /> <!-- To handle the reselection within the app on Android 14 (API level 34) -->
     <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" />
@@ -38,8 +39,14 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Duangiaohang"
+      android:theme="@style/Theme.Duangiaohang"
         tools:targetApi="31">
+        <activity
+            android:name=".ManHinhDonHangActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ManHinhNhanDuocHangActivity"
+            android:exported="false" />
         <activity
             android:name=".ManHinhNhanHangActivity"
             android:exported="false" />
@@ -57,7 +64,7 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".DangNhapShipperActivity"
             android:exported="true">
