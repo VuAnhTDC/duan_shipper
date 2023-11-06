@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.duangiaohang.Models.ShipperData;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -35,13 +36,18 @@ public class CustomAdapterNhanHangActivity extends RecyclerView.Adapter<CustomAd
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
         ShipperData shipperData = mListShipper.get(position);
-        if (shipperData == null) {
-            return;
+        if (shipperData != null) {
+            if(shipperData.getUrlImgShopAvatar().isEmpty()){
+                holder.imgUser.setImageResource(Integer.parseInt(shipperData.getUrlImgShopAvatar()));
+            }
+            else {
+                Picasso.get().load(shipperData.getUrlImgShopAvatar()).into(holder.imgUser);
+
+            }
+            holder.tvNameShipper.setText(shipperData.getHoTenShipper());
+            holder.tvDiaChiShipper.setText(shipperData.getDiaChiShipper());
 
         }
-        holder.imgUser.setImageResource(Integer.parseInt(shipperData.getUrlImgShopAvatar()));
-        holder.tvNameShipper.setText(shipperData.getHoTenShipper());
-        holder.tvDiaChiShipper.setText(shipperData.getDiaChiShipper());
 
 
     }

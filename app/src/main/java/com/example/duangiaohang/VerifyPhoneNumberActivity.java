@@ -141,6 +141,7 @@ public class VerifyPhoneNumberActivity extends AppCompatActivity {
 
     void registration() {
         shipperData.setUrlImgShopAvatar("");
+        shipperData.setPassWordShipper("");
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference shopReference = firebaseDatabase.getReference("Shipper");
         // Upload dữ liệu text
@@ -178,7 +179,7 @@ public class VerifyPhoneNumberActivity extends AppCompatActivity {
             }).addOnFailureListener(e -> {
 
 
-                ShowMessage.showMessage("Lỗi khi tải ảnh lên: " + e);
+                ShowMessage.showMessage("Lỗi khi tải ảnh lên: " + e,VerifyPhoneNumberActivity.this);
             });
         });
     }

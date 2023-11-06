@@ -220,6 +220,7 @@ public class DangKiShipperActivity extends AppCompatActivity {
                 shipperData.setNguyenQuanShipper(edtNguyenQuanShipper.getText().toString());
                 shipperData.setKhuVucGHShipper(spKhuVucGiaoShipper.getSelectedItem().toString());
 
+
 //                if (!kiemtraShipper()) {
                     // Tiếp tục đến màn hình tiếp theo
                     Intent intent = new Intent(context, VerifyPhoneNumberActivity.class);
