@@ -1,23 +1,21 @@
-package com.example.duangiaohang;
+package com.example.duangiaohang.ViewPage2;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+
+import com.example.duangiaohang.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link MHNhanDonHang_ChuaGiaoFragment#newInstance} factory method to
+ * Use the {@link ManHinhTrangChuDonHangFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MHNhanDonHang_ChuaGiaoFragment extends Fragment {
+public class ManHinhTrangChuDonHangFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,7 +26,7 @@ public class MHNhanDonHang_ChuaGiaoFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public MHNhanDonHang_ChuaGiaoFragment() {
+    public ManHinhTrangChuDonHangFragment() {
         // Required empty public constructor
     }
 
@@ -38,11 +36,11 @@ public class MHNhanDonHang_ChuaGiaoFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment MHNhanDuocHang_ChuaGiaoFragment.
+     * @return A new instance of fragment ManHinhTrangChuDonHangFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MHNhanDonHang_ChuaGiaoFragment newInstance(String param1, String param2) {
-        MHNhanDonHang_ChuaGiaoFragment fragment = new MHNhanDonHang_ChuaGiaoFragment();
+    public static ManHinhTrangChuDonHangFragment newInstance(String param1, String param2) {
+        ManHinhTrangChuDonHangFragment fragment = new ManHinhTrangChuDonHangFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -63,20 +61,6 @@ public class MHNhanDonHang_ChuaGiaoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.m_h_nhan_duoc_hang_chua_giao_fragment, container, false);
-    }
-
-    public static class ManHinhTrangChuShipperViewHolder extends RecyclerView.ViewHolder {
-        ImageView iviitemImageSPTC;
-        TextView tvItemMaDonHangTC_RecyclerView, tvItemDiaChiNhanHangTC_RecyclerView, tvItemDiaChiGiaoHangTC_RecyclerView, tvItemGiaCaTC_RecyclerView;
-
-        public ManHinhTrangChuShipperViewHolder(@NonNull View itemView) {
-            super(itemView);
-            tvItemMaDonHangTC_RecyclerView = itemView.findViewById(R.id.tvItemMaDonHang);
-            tvItemDiaChiNhanHangTC_RecyclerView = itemView.findViewById(R.id.tvItemDiaChiNhanHangTC);
-            tvItemDiaChiGiaoHangTC_RecyclerView = itemView.findViewById(R.id.tvItemDiaChiGiaoHangTC);
-            tvItemGiaCaTC_RecyclerView = itemView.findViewById(R.id.tvItemGiaCaTC);
-            iviitemImageSPTC = itemView.findViewById(R.id.ivItemImageSPTC);
-        }
+        return inflater.inflate(R.layout.man_hinh_trang_chu_don_hang_fragment, container, false);
     }
 }

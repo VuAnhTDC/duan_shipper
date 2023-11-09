@@ -11,4 +11,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="ch_a_giao">Chưa Giao</string>
     <string name="giao_sau">Giao Sau</string>
+    <string name="m_n_h_ng">Mã Đơn Hàng</string>
+    <string name="a_ch_nh_n_h_ng">Địa Chỉ Nhận Hàng</string>
+    <string name="a_ch_giao_h_ng">Địa Chỉ Giao Hàng</string>
+    <string name="gi_c">Giá Cả</string>
 </resources>

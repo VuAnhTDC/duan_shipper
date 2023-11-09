@@ -15,11 +15,11 @@ import android.widget.TextView;
 
 import com.example.duangiaohang.Class.ShowMessage;
 import com.example.duangiaohang.Models.ShipperData;
+import com.example.duangiaohang.RecyclerView.MHTrangChuShipperAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
@@ -109,7 +109,7 @@ public class DangNhapShipperActivity extends AppCompatActivity {
                                         SharedPreferences.Editor editor = sharedPreferences1.edit();
                                         editor.putString("informationShop", json);
                                         editor.apply();
-                                        Intent intent = new Intent(context, ManHinhTrangChuShipper.class);
+                                        Intent intent = new Intent(context, MHTrangChuShipperActivity.class);
                                         startActivity(intent);
                                         finish();
                                         return;

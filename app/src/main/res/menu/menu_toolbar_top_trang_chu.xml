@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/mnShop_Actionbar"
+        android:icon="@drawable/store"
+        android:title="Cửa Hàng"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/mnNotification_Actionbar"
+        android:icon="@drawable/messenger"
+        android:title="Thông Báo "
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/mnAccouunt_Actionbar"
+        android:icon="@drawable/ggcacc"
+        android:title="Người Dùng"
+        app:showAsAction="always" />
+
+</menu>
