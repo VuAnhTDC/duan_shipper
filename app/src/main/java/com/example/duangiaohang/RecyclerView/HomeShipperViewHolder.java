@@ -1,7 +1,6 @@
 package com.example.duangiaohang.RecyclerView;
 
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -10,12 +9,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.duangiaohang.R;
 
-public class MHTrangChuShipperViewHolder extends RecyclerView.ViewHolder {
+public class HomeShipperViewHolder extends RecyclerView.ViewHolder {
     ImageView imgOtherProductItem;
 
     TextView tvMaDonHangTC, tvDiaChiNhanHangTC, tvDiaChiGiaoHangTC, tvGiaTC;
 
-    public MHTrangChuShipperViewHolder(@NonNull View itemView) {
+    public HomeShipperViewHolder(@NonNull View itemView) {
         super(itemView);
         tvMaDonHangTC = itemView.findViewById(R.id.tvItemMaDonHang);
         tvGiaTC = itemView.findViewById(R.id.tvItemGiaCaTC);

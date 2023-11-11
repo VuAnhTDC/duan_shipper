@@ -1,20 +1,22 @@
 package com.example.duangiaohang;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.Constraints;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.duangiaohang.Models.ListItemUserTC;
 import com.example.duangiaohang.Models.OrderData;
-import com.example.duangiaohang.Models.ShopData;
-import com.example.duangiaohang.R;
-import com.example.duangiaohang.RecyclerView.MHTrangChuShipperAdapter;
+
+import com.example.duangiaohang.RecyclerView.CustomAdapterHomeShipper;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,11 +25,13 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class MHTrangChuShipperActivity extends AppCompatActivity {
+public class HomerActivity extends AppCompatActivity {
     private RecyclerView recyclerViewTC;
-    private ArrayList<ListItemUserTC> listItemUserTCArrayList = new ArrayList<>();
+    private final ArrayList<ListItemUserTC> listItemUserTCArrayList = new ArrayList<>();
+    ArrayList <OrderData> orderDataArrayList = new ArrayList<>();
+    CustomAdapterHomeShipper customAdapterHomeShipper;
 
-    private MHTrangChuShipperAdapter mhTrangChuShipperAdapter;
+Context context;
 
     private DatabaseReference databaseReference;
     private FirebaseDatabase firebaseDatabase;
@@ -41,28 +45,36 @@ public class MHTrangChuShipperActivity extends AppCompatActivity {
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("OrderProduct");
-        mhTrangChuShipperAdapter = new MHTrangChuShipperAdapter(listItemUserTCArrayList);
-        recyclerViewTC.setAdapter(mhTrangChuShipperAdapter);
+
+        customAdapterHomeShipper = new CustomAdapterHomeShipper(orderDataArrayList,this);
+
+        recyclerViewTC.setAdapter(customAdapterHomeShipper);
         getListItemShipperUser();
     }
 
 
     private void getListItemShipperUser() {
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("OrderProduct");
         databaseReference.addValueEventListener(new ValueEventListener() {
 
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 listItemUserTCArrayList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    ListItemUserTC listItemUserTC = dataSnapshot.getValue(ListItemUserTC.class);
-                    listItemUserTCArrayList.add(listItemUserTC);
+//                    ListItemUserTC listItemUserTC = dataSnapshot.getValue(ListItemUserTC.class);
+//                    listItemUserTCArrayList.add(listItemUserTC);
+                    OrderData orderData = dataSnapshot.getValue(OrderData.class);
+                    orderDataArrayList.add(orderData);
                 }
-                mhTrangChuShipperAdapter.notifyDataSetChanged();
+//                mhTrangChuShipperAdapter.notifyDataSetChanged();
+                customAdapterHomeShipper.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(MHTrangChuShipperActivity.this, "Lỗi khi tải dữ liệu từ Firebase", Toast.LENGTH_SHORT).show();
+                Toast.makeText(HomerActivity.this, "Lỗi khi tải dữ liệu từ Firebase", Toast.LENGTH_SHORT).show();
             }
         });
     }

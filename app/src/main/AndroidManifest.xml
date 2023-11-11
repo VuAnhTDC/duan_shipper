@@ -40,7 +40,7 @@
         android:theme="@style/Theme.Duangiaohang"
         tools:targetApi="31">
         <activity
-            android:name=".MHTrangChuShipperActivity"
+            android:name=".HomerActivity"
             android:exported="false" />
         <activity
             android:name=".ManHinhDonHangActivity"

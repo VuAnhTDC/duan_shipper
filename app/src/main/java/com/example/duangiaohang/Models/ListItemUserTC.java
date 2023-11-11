@@ -7,7 +7,9 @@ import java.util.Objects;
 public class ListItemUserTC {
     private String userShipperImageTC;
     private String maDonHangTC;
-
+    private  String diaChiGiaoHangTC;
+    private String diaChiNhanHangTC;
+    private String giaCaTC;
     @Override
     public String toString() {
         return "ListItemUserTC{" +
@@ -35,9 +37,7 @@ public class ListItemUserTC {
         this.giaCaTC = giaCaTC;
     }
 
-    private  String diaChiGiaoHangTC;
-    private String diaChiNhanHangTC;
-    private String giaCaTC;
+
 
     public ListItemUserTC(String  userShipperImageTC, String diaChiGiaoHangTC, String diaChiNhanHangTC, String giaCaTC) {
         this.userShipperImageTC = userShipperImageTC;

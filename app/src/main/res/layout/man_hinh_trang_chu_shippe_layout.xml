@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MHTrangChuShipperActivity">
+    tools:context=".HomerActivity">
 
     <Spinner
         android:id="@+id/spKhuVucGiaoShipper"
         android:layout_width="200dp"
-        android:layout_height="41dp"
+        android:layout_height="48dp"
         android:layout_gravity="center"
         android:scrollbarSize="10dp" />
 
