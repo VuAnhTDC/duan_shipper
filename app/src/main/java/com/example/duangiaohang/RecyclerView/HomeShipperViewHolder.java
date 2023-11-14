@@ -2,6 +2,7 @@ package com.example.duangiaohang.RecyclerView;
 
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import com.example.duangiaohang.R;
 
 public class HomeShipperViewHolder extends RecyclerView.ViewHolder {
     ImageView imgOtherProductItem;
+    LinearLayout linearLayout_ItemOrderList;
 
     TextView tvMaDonHangTC, tvDiaChiNhanHangTC, tvDiaChiGiaoHangTC, tvGiaTC;
 
@@ -21,5 +23,6 @@ public class HomeShipperViewHolder extends RecyclerView.ViewHolder {
         tvDiaChiGiaoHangTC = itemView.findViewById(R.id.tvItemDiaChiGiaoHangTC);
         tvDiaChiNhanHangTC = itemView.findViewById(R.id.tvItemDiaChiNhanHangTC);
         imgOtherProductItem = itemView.findViewById(R.id.ivItemImageSPTC);
+        linearLayout_ItemOrderList = itemView.findViewById(R.id.loadchitiet);
     }
 }

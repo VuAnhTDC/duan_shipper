@@ -1,6 +1,7 @@
 package com.example.duangiaohang.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.duangiaohang.Models.Image;
 import com.example.duangiaohang.Models.OrderData;
 import com.example.duangiaohang.Models.ShopData;
+import com.example.duangiaohang.OrderDetailsNeedDelivereActivity;
 import com.example.duangiaohang.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -58,7 +60,7 @@ public class CustomAdapterHomeShipper extends RecyclerView.Adapter<HomeShipperVi
 
     @Override
     public void onBindViewHolder(@NonNull HomeShipperViewHolder holder, int position) {
-System.out.println("sixe"+orderDataArrayList.size());
+        System.out.println("sixe" + orderDataArrayList.size());
 
         OrderData orderData = orderDataArrayList.get(position);
         if (orderData != null) {
@@ -66,12 +68,31 @@ System.out.println("sixe"+orderDataArrayList.size());
 
             holder.tvMaDonHangTC.setText(orderData.getIdOrder());
             holder.tvDiaChiNhanHangTC.setText(orderData.getDeliveryAddress());
-            holder.tvGiaTC.setText(orderData.getPrice_Order()+"VND");
-            getShopAddress(orderData.getIdShop_Order(),holder);
-            getImageProduct(orderData.getIdProduct_Order(),holder);
+            holder.tvGiaTC.setText(orderData.getPrice_Order() + "VND");
+            getShopAddress(orderData.getIdShop_Order(), holder);
+            getImageProduct(orderData.getIdProduct_Order(), holder);
 
+
+            //Chuyển sang màn hình chi tiết đơn hàng
+            final int finalPosition = position;
+            holder.linearLayout_ItemOrderList.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, OrderDetailsNeedDelivereActivity.class);
+                    /////////Truyền dữ liệu qua màn hình order detail///////////
+                    OrderData orderData1 = orderDataArrayList.get(finalPosition);
+                    intent.putExtra("orderData1", orderData1);
+                    System.out.println("Dữ liệu truyền đi tại OrderItem: " + orderData1);
+                    ////////////////////////////////////////////////////////////
+                    context.startActivity(intent);
+                }
+
+            });
         }
     }
+
+
+
 
 
     private void getShopAddress(String idShop,HomeShipperViewHolder holder) {

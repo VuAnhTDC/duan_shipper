@@ -43,7 +43,7 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
-    implementation("com.squareup.picasso:picasso:2.8")
+    implementation("com.squareup.picasso:picasso:2.71828")
     implementation("com.android.volley:volley:1.2.1")
     //implementation(platform("com.google.firebase:firebase-bom:32.3.1"))
     implementation("com.google.firebase:firebase-analytics-ktx")
@@ -54,7 +54,8 @@ dependencies {
     //import firebase authen
 
     implementation("de.hdodenhof:circleimageview:3.1.0")
-    implementation ("com.google.code.gson:gson:2.8.7")
+    implementation ("com.google.code.gson:gson:2.8.9")
+    implementation ("me.relex:circleindicator:2.1.6")
 
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     // For control over item selection of both touch and mouse driven selection

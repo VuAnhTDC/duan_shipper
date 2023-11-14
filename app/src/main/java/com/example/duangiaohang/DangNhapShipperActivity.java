@@ -109,7 +109,7 @@ public class DangNhapShipperActivity extends AppCompatActivity {
                                         SharedPreferences.Editor editor = sharedPreferences1.edit();
                                         editor.putString("informationShop", json);
                                         editor.apply();
-                                        Intent intent = new Intent(context, HomerActivity.class);
+                                        Intent intent = new Intent(context, HomeActivity.class);
                                         startActivity(intent);
                                         finish();
                                         return;

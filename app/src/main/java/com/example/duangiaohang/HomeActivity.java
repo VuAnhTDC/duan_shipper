@@ -3,6 +3,7 @@ package com.example.duangiaohang;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,11 +22,12 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class HomerActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
     private RecyclerView recyclerViewTC;
 
     ArrayList<OrderData> orderDataArrayList = new ArrayList<>();
     CustomAdapterHomeShipper customAdapterHomeShipper;
+    LinearLayout linnerlayout;
 
     Context context;
 
@@ -63,10 +65,13 @@ context= this;
                 orderDataArrayList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     for (DataSnapshot snapshot1 : dataSnapshot.getChildren()) {
-                        OrderData orderData = snapshot1.getValue(OrderData.class);
-                        orderDataArrayList.add(orderData);
-                        Log.d("FirebaseData", "Data: " + orderData.toString());
 
+                        OrderData orderData = snapshot1.getValue(OrderData.class);
+                        if (orderData.getStatusOrder() == 1) {
+                            orderDataArrayList.add(orderData);
+                            Log.d("FirebaseData", "Data: " + orderData.toString());
+
+                        }
                     }
                 }
 
@@ -77,10 +82,14 @@ context= this;
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(HomerActivity.this, "Lỗi khi tải dữ liệu từ Firebase", Toast.LENGTH_SHORT).show();
+                Toast.makeText(HomeActivity.this, "Lỗi khi tải dữ liệu từ Firebase", Toast.LENGTH_SHORT).show();
             }
         });
+
+
+
     }
+
 
 
     private void setControl() {
