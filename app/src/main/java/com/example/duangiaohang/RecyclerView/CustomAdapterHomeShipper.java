@@ -54,7 +54,7 @@ public class CustomAdapterHomeShipper extends RecyclerView.Adapter<HomeShipperVi
     @NonNull
     @Override
     public HomeShipperViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new HomeShipperViewHolder(LayoutInflater.from(context).inflate(R.layout.item_mh_trangchu_shipper,parent,false));
+        return new HomeShipperViewHolder(LayoutInflater.from(context).inflate(R.layout.item_mh_trangchu_shipper, parent, false));
 
     }
 
@@ -92,10 +92,7 @@ public class CustomAdapterHomeShipper extends RecyclerView.Adapter<HomeShipperVi
     }
 
 
-
-
-
-    private void getShopAddress(String idShop,HomeShipperViewHolder holder) {
+    private void getShopAddress(String idShop, HomeShipperViewHolder holder) {
         databaseReference = firebaseDatabase.getReference("Shop/" + idShop);
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -123,20 +120,31 @@ public class CustomAdapterHomeShipper extends RecyclerView.Adapter<HomeShipperVi
     }
 
 
-    private void getImageProduct(String idProduct,HomeShipperViewHolder holder) {
+    private void getImageProduct(String idProduct, HomeShipperViewHolder holder) {
         databaseReference = firebaseDatabase.getReference("ImageProducts");
-        Query query = databaseReference.orderByChild("idProduct").equalTo(idProduct);
+        Log.i("TAG", "HELO" + idProduct);
+        Query query = databaseReference.orderByChild("idProduct" ).equalTo(idProduct);
+
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    for (DataSnapshot imageItem : snapshot.getChildren()) {
-                        Image image = imageItem.getValue(Image.class);
+                Log.i("TAG","MESS"+snapshot);
 
-                        Picasso.get().load(image.getUrlImage()).placeholder(R.drawable.ic_launcher_background).into(holder.imgOtherProductItem);
-                        return;
+                // Kiểm tra xem có dữ liệu và có các nút con không
+                if (snapshot.exists() && snapshot.hasChildren()) {
+
+                    for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+
+                        for (DataSnapshot imageItem : snapshot1.getChildren()) {
+                            Image image = imageItem.getValue(Image.class);
+
+                            Picasso.get().load(image.getUrlImage()).placeholder(R.drawable.ic_launcher_background).into(holder.imgOtherProductItem);
+                            return;
+                        }
                     }
                 }
+
+
             }
 
             @Override
@@ -146,9 +154,9 @@ public class CustomAdapterHomeShipper extends RecyclerView.Adapter<HomeShipperVi
         });
     }
 
-    @Override
-    public int getItemCount() {
-        return orderDataArrayList.size();
+        @Override
+        public int getItemCount () {
+            return orderDataArrayList.size();
+        }
     }
-}
 
