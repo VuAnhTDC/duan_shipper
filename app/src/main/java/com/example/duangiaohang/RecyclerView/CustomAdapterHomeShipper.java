@@ -92,6 +92,9 @@ public class CustomAdapterHomeShipper extends RecyclerView.Adapter<HomeShipperVi
     }
 
 
+
+
+
     private void getShopAddress(String idShop, HomeShipperViewHolder holder) {
         databaseReference = firebaseDatabase.getReference("Shop/" + idShop);
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -121,11 +124,11 @@ public class CustomAdapterHomeShipper extends RecyclerView.Adapter<HomeShipperVi
 
 
     private void getImageProduct(String idProduct, HomeShipperViewHolder holder) {
-        databaseReference = firebaseDatabase.getReference("ImageProducts");
-        Log.i("TAG", "HELO" + idProduct);
-        Query query = databaseReference.orderByChild("idProduct" ).equalTo(idProduct);
+        databaseReference = firebaseDatabase.getReference("ImageProducts/"+idProduct);
+//        Log.i("TAG", "HELO" + idProduct);
+//        Query query = databaseReference.orderByChild("idProduct" ).equalTo(idProduct);
 
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Log.i("TAG","MESS"+snapshot);
@@ -135,17 +138,15 @@ public class CustomAdapterHomeShipper extends RecyclerView.Adapter<HomeShipperVi
 
                     for (DataSnapshot snapshot1 : snapshot.getChildren()) {
 
-                        for (DataSnapshot imageItem : snapshot1.getChildren()) {
-                            Image image = imageItem.getValue(Image.class);
-
-                            Picasso.get().load(image.getUrlImage()).placeholder(R.drawable.ic_launcher_background).into(holder.imgOtherProductItem);
-                            return;
-                        }
+//                        String image =snapshot1.c;
+                        System.out.println("tgx"+snapshot1);
+                        //  Picasso.get().load(image).placeholder(R.drawable.ic_launcher_background).into(holder.imgOtherProductItem
                     }
+
                 }
-
-
             }
+
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -154,9 +155,9 @@ public class CustomAdapterHomeShipper extends RecyclerView.Adapter<HomeShipperVi
         });
     }
 
-        @Override
-        public int getItemCount () {
-            return orderDataArrayList.size();
-        }
+    @Override
+    public int getItemCount () {
+        return orderDataArrayList.size();
     }
+}
 
