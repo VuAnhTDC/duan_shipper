@@ -124,8 +124,9 @@ public class CustomAdapterHomeShipper extends RecyclerView.Adapter<HomeShipperVi
 
 
     private void getImageProduct(String idProduct, HomeShipperViewHolder holder) {
-        databaseReference = firebaseDatabase.getReference("ImageProducts/"+idProduct);
-//        Log.i("TAG", "HELO" + idProduct);
+
+        databaseReference = firebaseDatabase.getReference("ImageProducts/"+idProduct + "/1");
+        Log.i("TAG", "HELO" + idProduct);
 //        Query query = databaseReference.orderByChild("idProduct" ).equalTo(idProduct);
 
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -136,12 +137,11 @@ public class CustomAdapterHomeShipper extends RecyclerView.Adapter<HomeShipperVi
                 // Kiểm tra xem có dữ liệu và có các nút con không
                 if (snapshot.exists() && snapshot.hasChildren()) {
 
-                    for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                      String image = snapshot.child("urlImage").getValue().toString();
+                  //      System.out.println("tgx"+snapshot);
+                    System.out.println("tgx"+image);
+                          Picasso.get().load(image).placeholder(R.drawable.ic_launcher_background).into(holder.imgOtherProductItem);
 
-//                        String image =snapshot1.c;
-                        System.out.println("tgx"+snapshot1);
-                        //  Picasso.get().load(image).placeholder(R.drawable.ic_launcher_background).into(holder.imgOtherProductItem
-                    }
 
                 }
             }

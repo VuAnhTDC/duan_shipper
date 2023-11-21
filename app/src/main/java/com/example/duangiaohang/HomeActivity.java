@@ -1,8 +1,11 @@
 package com.example.duangiaohang;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -49,9 +52,42 @@ context= this;
        // LinearLayoutManager linearLayoutManagerTC = new LinearLayoutManager(this);
         recyclerViewTC.setLayoutManager(new LinearLayoutManager(context));
         recyclerViewTC.setAdapter(customAdapterHomeShipper);
-        getListItemShipperUser();
+      //  getListItemShipperUser();
+        setEvent();
 
 
+    }
+
+    private void setEvent() {
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.mnShop_Actionbar){
+            Intent intent = new Intent(context, AccountInformationActivity.class);
+            startActivity(intent);
+        }
+        if(item.getItemId() == R.id.mnNotification_Actionbar){
+            Intent intent = new Intent(context, AccountInformationActivity.class);
+            startActivity(intent);
+        }
+        if (item.getItemId() == R.id.mnAccouunt_Actionbar){
+            Intent intent = new Intent(context,AccountInformationActivity.class);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_toolbar_top_trang_chu, menu);
+        return super.onPrepareOptionsMenu(menu);
     }
 
 
@@ -77,6 +113,7 @@ context= this;
 
                 System.out.println("systemout"+orderDataArrayList.size());
                 customAdapterHomeShipper.notifyDataSetChanged();
+
             }
 
 

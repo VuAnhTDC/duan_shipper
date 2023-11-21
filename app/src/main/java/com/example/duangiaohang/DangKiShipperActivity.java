@@ -35,7 +35,7 @@ import java.util.List;
 
 
 public class DangKiShipperActivity extends AppCompatActivity {
-    private static final int REQUEST_IMAGE_PICKER = 1;
+    public static final int REQUEST_IMAGE_PICKER = 1;
 
     private static final int PICK_IMAGE_FRONT = 1;
     private static final int PICK_IMAGE_BACK = 2;
@@ -219,6 +219,7 @@ public class DangKiShipperActivity extends AppCompatActivity {
                 shipperData.setDiaChiShipper(edtDiaChiThuongTruShipper.getText().toString());
                 shipperData.setNguyenQuanShipper(edtNguyenQuanShipper.getText().toString());
                 shipperData.setKhuVucGHShipper(spKhuVucGiaoShipper.getSelectedItem().toString());
+                shipperData.setIdShipper(edtSoDienThoaiShipper.getText().toString());
 
 
 //                if (!kiemtraShipper()) {

@@ -17,15 +17,12 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="29" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission
         android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="29"
+
         tools:ignore="ScopedStorage" /> <!-- Devices running Android 12L (API level 32) or lower -->
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.SEND_SMS" /> <!-- To handle the reselection within the app on Android 14 (API level 34) -->
@@ -41,6 +38,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Duangiaohang"
         tools:targetApi="31">
+        <activity
+            android:name=".AccountInformationActivity"
+            android:exported="false"
+            android:theme="@style/NoActionBar" />
         <activity
             android:name=".HomeActivity"
             android:exported="false" />
@@ -68,17 +69,16 @@
         <activity
             android:name=".MainActivity"
             android:exported="false" />
-
         <activity
             android:name=".OrderDetailsNeedDelivereActivity"
             android:exported="false" />
-
-
         <activity
             android:name=".DangNhapShipperActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

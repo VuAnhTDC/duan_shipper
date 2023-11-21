@@ -140,7 +140,7 @@ public class VerifyPhoneNumberActivity extends AppCompatActivity {
     }
 
     void registration() {
-        shipperData.setUrlImgShopAvatar("");
+        shipperData.setUrlImgShopAvatar("https://firebasestorage.googleapis.com/v0/b/duandd2.appspot.com/o/imageUserKhachHang%2Favatar1.jpg?alt=media&token=922b175b-f203-44e7-985e-f0b057465e37");
         shipperData.setPassWordShipper("");
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference shopReference = firebaseDatabase.getReference("Shipper");

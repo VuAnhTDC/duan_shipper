@@ -3,16 +3,23 @@ package com.example.duangiaohang;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.duangiaohang.Class.LoadingDialog;
 import com.example.duangiaohang.Class.ShowMessage;
 import com.example.duangiaohang.Models.ShipperData;
 //import com.example.duangiaohang.RecyclerView.MHTrangChuShipperAdapter;
@@ -26,9 +33,12 @@ import com.google.gson.Gson;
 public class DangNhapShipperActivity extends AppCompatActivity {
     TextView tvDangKiShipper, tvDangnhapShipper, tvQuenMkShipper;
     EditText edtEmailShipper, edtMatKhauShipper;
+
     Button btnDangNhap;
     Context context;
-
+    private LoadingDialog loadingDialog;
+    ProgressBar progressBar;
+    TextView textView;
 
     DatabaseReference databaseReference;
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -39,6 +49,9 @@ public class DangNhapShipperActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_dang_nhap_shipper);
         context = this;
+        loadingDialog = new LoadingDialog(DangNhapShipperActivity.this);
+
+
         setControl();
         setEvent();
 
@@ -82,6 +95,7 @@ public class DangNhapShipperActivity extends AppCompatActivity {
                     hideKeyboard();
                     //progressbar_Loading_ScreenLogin.setVisibility(View.VISIBLE);
                 }
+                loadingDialog.startLoadingDialog();
                 // Kiểm tra xem user có tồn tại không
                 databaseReference = firebaseDatabase.getReference("Shipper");
                 databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -94,19 +108,23 @@ public class DangNhapShipperActivity extends AppCompatActivity {
                                 found = true;
                                 if (shipperItem.child("passWordShipper").getValue(String.class).equals(edtMatKhauShipper.getText().toString())) {
                                     if (Integer.parseInt(shipperItem.child("status").getValue().toString()) == 0) {
+                                        loadingDialog.dismissDialog();
                                         ShowMessage.showMessage("Tài khoản đang chờ ADMIN duyệt đăng ký. Vui lòng chờ thông báo!", DangNhapShipperActivity.this);
                                         return;
                                     } else if (Integer.parseInt(shipperItem.child("status").getValue().toString()) == 2) {
-                                        ShowMessage.showMessage("Tài khoản đã bị khóa.\nLiên hệz ADMIN để biết thêm chi tiết!!!",DangNhapShipperActivity.this);
+                                        loadingDialog.dismissDialog();
+                                        ShowMessage.showMessage("Tài khoản đã bị khóa.\nLiên hệz ADMIN để biết thêm chi tiết!!!", DangNhapShipperActivity.this);
                                         return;
                                     } else if (Integer.parseInt(shipperItem.child("status").getValue().toString()) == 1) {
                                         // Đăng nhập thành công
                                         ShipperData shipperData = shipperItem.getValue(ShipperData.class);
                                         // Lưu thông tin của người dùng vào SharedPreferences
-                                        SharedPreferences sharedPreferences1 = getSharedPreferences("InformationShop", Context.MODE_PRIVATE);
+                                        SharedPreferences sharedPreferences1 = getSharedPreferences("informationShop", Context.MODE_PRIVATE);
                                         Gson gson = new Gson();
                                         String json = gson.toJson(shipperData);
                                         SharedPreferences.Editor editor = sharedPreferences1.edit();
+
+
                                         editor.putString("informationShop", json);
                                         editor.apply();
                                         Intent intent = new Intent(context, HomeActivity.class);
@@ -118,15 +136,18 @@ public class DangNhapShipperActivity extends AppCompatActivity {
                             }
                         }
                         if (!found) {
-                            ShowMessage.showMessage("Tài khoản không tồn tại!!!",DangNhapShipperActivity.this);
+                            loadingDialog.dismissDialog();
+                            ShowMessage.showMessage("Tài khoản không tồn tại!!!", DangNhapShipperActivity.this);
                         } else {
-                            ShowMessage.showMessage("Sai mật khẩu. Vui lòng thử lại!!!",DangNhapShipperActivity.this);
+
+                            ShowMessage.showMessage("Sai mật khẩu. Vui lòng thử lại!!!", DangNhapShipperActivity.this);
                         }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        ShowMessage.showMessage("Lỗi không truy vấn được dữ liệu: " + error,DangNhapShipperActivity.this);
+                        loadingDialog.dismissDialog();
+                        ShowMessage.showMessage("Lỗi không truy vấn được dữ liệu: " + error, DangNhapShipperActivity.this);
                     }
                 });
 
@@ -135,25 +156,27 @@ public class DangNhapShipperActivity extends AppCompatActivity {
         });
     }
 
-            private void setControl() {
-                tvDangnhapShipper = findViewById(R.id.tvDangNhapShipper);
-                edtEmailShipper = findViewById(R.id.edtEmailNguoiShipper);
-                edtMatKhauShipper = findViewById(R.id.edtMatKhauShipper);
-                tvDangKiShipper = findViewById(R.id.tvDangKiShipper);
-                tvQuenMkShipper = findViewById(R.id.tvQuenMkShipper);
-                btnDangNhap = findViewById(R.id.btnDangNhap);
+    private void setControl() {
+        tvDangnhapShipper = findViewById(R.id.tvDangNhapShipper);
+        edtEmailShipper = findViewById(R.id.edtEmailNguoiShipper);
+        edtMatKhauShipper = findViewById(R.id.edtMatKhauShipper);
+        tvDangKiShipper = findViewById(R.id.tvDangKiShipper);
+        tvQuenMkShipper = findViewById(R.id.tvQuenMkShipper);
+        btnDangNhap = findViewById(R.id.btnDangNhap);
+        progressBar = findViewById(R.id.loadingProgressBar);
+        textView = findViewById(R.id.loadingTextView);
 
-            }
+    }
 
-            private void hideKeyboard() {
-                View view = this.getCurrentFocus();
-                if (view != null) {
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                }
-            }
-
-
+    private void hideKeyboard() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+    }
+
+
+}
 
 

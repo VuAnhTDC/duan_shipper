@@ -28,6 +28,7 @@ public class ManHinhDonHangActivity extends AppCompatActivity {
         viewPager2_DonHang.setAdapter(viewpage2DonHangActivity);
     }
 
+
     private void setControl() {
         tabLayout_DonHang = findViewById(R.id.tablayout_DonHang);
         viewPager2_DonHang = findViewById(R.id.viewpager2_DonHang);

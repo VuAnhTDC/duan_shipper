@@ -15,4 +15,6 @@
     <string name="a_ch_nh_n_h_ng">Địa Chỉ Nhận Hàng</string>
     <string name="a_ch_giao_h_ng">Địa Chỉ Giao Hàng</string>
     <string name="gi_c">Giá Cả</string>
+    <string name="loading_data">Loading Data...</string>
+    <string name="please_wait">Please Wait...</string>
 </resources>
