@@ -3,16 +3,11 @@ package com.example.duangiaohang;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.animation.ArgbEvaluator;
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.RotateAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -72,7 +67,7 @@ public class DangNhapShipperActivity extends AppCompatActivity {
         tvQuenMkShipper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DangNhapShipperActivity.this, QuenMatKhauShipperActivity.class);
+                Intent intent = new Intent(DangNhapShipperActivity.this, NewChangePassWordShipperActivity.class);
                 //   intent.putExtra(E,edtTitle.getText().toString());
                 //   intent.putExtra(DESCRIPTION,edtDescription.getText().toString());
                 startActivity(intent);
@@ -121,7 +116,7 @@ public class DangNhapShipperActivity extends AppCompatActivity {
                                         // Lưu thông tin của người dùng vào SharedPreferences
                                         SharedPreferences sharedPreferences1 = getSharedPreferences("informationShop", Context.MODE_PRIVATE);
                                         Gson gson = new Gson();
-                                        String json = gson.toJson(shipperData);
+                                         String json = gson.toJson(shipperData);
                                         SharedPreferences.Editor editor = sharedPreferences1.edit();
 
 
@@ -139,7 +134,7 @@ public class DangNhapShipperActivity extends AppCompatActivity {
                             loadingDialog.dismissDialog();
                             ShowMessage.showMessage("Tài khoản không tồn tại!!!", DangNhapShipperActivity.this);
                         } else {
-
+                            loadingDialog.dismissDialog();
                             ShowMessage.showMessage("Sai mật khẩu. Vui lòng thử lại!!!", DangNhapShipperActivity.this);
                         }
                     }

@@ -110,6 +110,17 @@ public class AccountInformationActivity extends AppCompatActivity {
                 finish();
             }
         });
+        tvChangePassWordShipper.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+            Intent intent = new Intent(AccountInformationActivity.this,NewChangePassWordShipperActivity.class );
+     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.putExtra("idShipper", shipperData);
+             startActivity(intent);
+            }
+        });
 
     }
 
@@ -147,7 +158,7 @@ public class AccountInformationActivity extends AppCompatActivity {
 
         String[] part = UriStrImageAvater.getLastPathSegment().split("/");
         Log.i("TAG", "IMG" + UriStrImageAvater);
-        StorageReference imgRef = storageRef.child("Imageshipper/" + shipperData.getSdtShipper() + "/" + (part[part.length - 1]));
+        StorageReference imgRef = storageRef.child("ImagerUserShipper/" + shipperData.getSdtShipper() + "/" + (part[part.length - 1]));
         UploadTask uploadTask = imgRef.putFile(UriStrImageAvater);
         uploadTask.addOnCompleteListener(taskSnapshot -> {
             imgRef.getDownloadUrl().addOnSuccessListener(uri -> {

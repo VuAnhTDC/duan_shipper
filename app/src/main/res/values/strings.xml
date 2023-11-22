@@ -17,4 +17,19 @@
     <string name="gi_c">Giá Cả</string>
     <string name="loading_data">Loading Data...</string>
     <string name="please_wait">Please Wait...</string>
+    <string name="title_activity_change_pass_word_shipper">ChangePassWordShipperActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="qu_n_m_t_kh_u">Quên mật khẩu</string>
+    <string name="l_y_m_sms">Lấy mã SMS</string>
+    <string name="nh_n_l_i_m_sau">Nhận lại mã sau:</string>
+    <string name="ti_p_t_c">Tiếp tục</string>
+    <string name="m_x_c_th_c_otp">Mã xác thực OTP</string>
+    <string name="s_i_n_tho_i">Số điện thoại</string>
 </resources>

@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -22,13 +23,19 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.duangiaohang.Models.ShipperData;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,12 +46,6 @@ public class DangKiShipperActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE_FRONT = 1;
     private static final int PICK_IMAGE_BACK = 2;
-    private static final int REQUEST_CODE =1 ;
-
-    private String mPhoneNumber;
-    private String mVericationId;
-    private FirebaseAuth mAuth;
-    private PhoneAuthProvider.ForceResendingToken mForceResendingToken;
 
 
 
@@ -59,12 +60,13 @@ public class DangKiShipperActivity extends AppCompatActivity {
 
 
     private Context context;
-    private int requestCode;
+
     Uri UriStrImage1T = null;
-    Uri  UriStrImage2S = null;
-    private String Code;
+    Uri UriStrImage2S = null;
+
 
     public DangKiShipperActivity() {
+
     }
 
 
@@ -72,11 +74,10 @@ public class DangKiShipperActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_dang_ki_shipper);
-        context  = this;
+        context = this;
         setControl();
 
         setEvent();
-
 
 
         // Khởi tạo danh sách của spiner các lựa chọn
@@ -90,7 +91,6 @@ public class DangKiShipperActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, options);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spKhuVucGiaoShipper.setAdapter(adapter);
-
 
 
     }
@@ -198,46 +198,68 @@ public class DangKiShipperActivity extends AppCompatActivity {
 //                    requestPermissions( new String[]{Manifest.permission.CAMERA}, REQUEST_IMAGE_CAPTURE);
 //                }
                 if (checkSelfPermission(Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
-                    requestPermissions( new String[]{Manifest.permission.READ_MEDIA_IMAGES}, REQUEST_IMAGE_PICKER);
+                    requestPermissions(new String[]{Manifest.permission.READ_MEDIA_IMAGES}, REQUEST_IMAGE_PICKER);
                 } else {
 
-                   // showImageSourceDialog();
+                    // showImageSourceDialog();
                     openGallery(PICK_IMAGE_BACK);
 
                 }
             }
         });
+
         btnTiepTuc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Kiểm tra điều kiện hợp lệ về dữ liệu của người dùng
+                if (!kiemtraShipper()) {
+                    // Tạo một đối tượng Shipper và điền dữ liệu
+                    ShipperData shipperData = new ShipperData();
+                    shipperData.setSdtShipper(edtSoDienThoaiShipper.getText().toString()); // Sử dụng số điện thoại làm ID
+                    shipperData.setHoTenShipper(edtHoVaTen.getText().toString());
+                    shipperData.setEmailShipper(edtEmailNguoiShipper.getText().toString());
+                    shipperData.setDiaChiShipper(edtDiaChiThuongTruShipper.getText().toString());
+                    shipperData.setNguyenQuanShipper(edtNguyenQuanShipper.getText().toString());
+                    shipperData.setKhuVucGHShipper(spKhuVucGiaoShipper.getSelectedItem().toString());
+                    shipperData.setIdShipper(edtSoDienThoaiShipper.getText().toString());
 
-                // Tạo một đối tượng Shipper và điền dữ liệu
-               ShipperData shipperData = new ShipperData();
-                shipperData.setSdtShipper(edtSoDienThoaiShipper.getText().toString()); // Sử dụng số điện thoại làm ID
-                shipperData.setHoTenShipper(edtHoVaTen.getText().toString());
-                shipperData.setEmailShipper(edtEmailNguoiShipper.getText().toString());
-                shipperData.setDiaChiShipper(edtDiaChiThuongTruShipper.getText().toString());
-                shipperData.setNguyenQuanShipper(edtNguyenQuanShipper.getText().toString());
-                shipperData.setKhuVucGHShipper(spKhuVucGiaoShipper.getSelectedItem().toString());
-                shipperData.setIdShipper(edtSoDienThoaiShipper.getText().toString());
+                    // Thực hiện truy vấn để kiểm tra sự tồn tại của số điện thoại trong Firebase Realtime Database
+                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Shipper");
+                    String phoneNumber = edtSoDienThoaiShipper.getText().toString();
+                    Query query = databaseReference.orderByChild("sdtShipper").equalTo(phoneNumber);
+                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists()) {
+                                // Số điện thoại đã tồn tại trong cơ sở dữ liệu
+                                Toast.makeText(DangKiShipperActivity.this, "Số điện thoại đã tồn tại!", Toast.LENGTH_SHORT).show();
+                            } else {
+                                // Số điện thoại không tồn tại trong cơ sở dữ liệu
+                                // Tiếp tục đến màn hình tiếp theo
+                                Intent intent = new Intent(context, VerifyPhoneNumberActivity.class);
+                                intent.putExtra("shipperData", shipperData);
+                                intent.putExtra("urifront", UriStrImage1T);
+                                intent.putExtra("uriback", UriStrImage2S);
+                                startActivity(intent);
+                                finish();
+                            }
+                        }
 
-
-//                if (!kiemtraShipper()) {
-                    // Tiếp tục đến màn hình tiếp theo
-                    Intent intent = new Intent(context, VerifyPhoneNumberActivity.class);
-                    intent.putExtra("shipperData", shipperData);
-                    intent.putExtra("urifront",UriStrImage1T);
-                    intent.putExtra("uriback", UriStrImage2S);
-                    startActivity(intent);
-                    finish();
-//                } else {
-//                    Toast.makeText(DangKiShipperActivity.this, "Thông tin không hợp lệ, vui lòng kiểm tra lại.", Toast.LENGTH_SHORT).show();
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            // Xử lý lỗi nếu có
+                            Log.e("YourTag", "Error reading data", error.toException());
+                        }
+                    });
+                } else {
+                    // Hiển thị thông báo lỗi nếu dữ liệu không hợp lệ
+                    Toast.makeText(DangKiShipperActivity.this, "Thông tin không hợp lệ, vui lòng kiểm tra lại.", Toast.LENGTH_SHORT).show();
                 }
-
-//            }
-
+            }
         });
     }
+
+
     // kiểm tra shipper nhập vào nêu dung return ve true sai true flase
 
     private boolean kiemtraShipper() {
@@ -276,6 +298,7 @@ public class DangKiShipperActivity extends AppCompatActivity {
             }
         }
     }
+
     //Sự kiện ẩn bàn phím
     private void hideKeyboard() {
         View view = this.getCurrentFocus();
@@ -285,13 +308,14 @@ public class DangKiShipperActivity extends AppCompatActivity {
         }
     }
 
-//
 
-    @SuppressLint("QueryPermissionsNeeded")
+
     private void openGallery(int requestCode) {
         Intent pickPhoto = new Intent(ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-     if (null != pickPhoto.resolveActivity(getPackageManager())) {
-            startActivityForResult(pickPhoto, requestCode);
+        if (null != pickPhoto.resolveActivity(getPackageManager())) {
+
+            startActivityForResult(pickPhoto, requestCode, null);
+
         }
     }
 

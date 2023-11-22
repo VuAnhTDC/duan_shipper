@@ -61,6 +61,12 @@ public class RegexValiDate {
         Matcher matcher = pattern.matcher(password);
         return matcher.find();
     }
+    public static boolean validOTP(String otp) {
+        String strRegex = "^\\d{6}$";
+        Pattern pattern = Pattern.compile(strRegex);
+        Matcher matcher = pattern.matcher(otp);
+        return matcher.find();
+    }
 
     public static boolean valiShipperdOTP(String otp) {
         String strRegex = "^\\d{6}$";

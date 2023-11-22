@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.Duangiaohang" parent="Theme.Material3.DayNight">
+    <style name="Base.Theme.Duangiaohang" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
@@ -8,4 +8,57 @@
     <style name="mytheme" parent="Theme.AppCompat.Light.DarkActionBar"/>
     <style name="Theme.Duangiaohang" parent="Base.Theme.Duangiaohang" />
     <style name="NoActionBar" parent="Theme.Material3.DayNight.NoActionBar"/>
+
+
+    <style name="Theme.Duancuahang" parent="Base.Theme.Duangiaohang" />
+
+    <style name="prop_tenManHinh" parent="Base.Theme.Duangiaohang">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">35dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginTop">30dp</item>
+        <item name="android:textColor">#000</item>
+    </style>
+    <style name="prop_editText" parent="Base.Theme.Duangiaohang">
+        <item name="android:layout_width">350dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textColorHint">#b0b0b0</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:imeOptions">actionDone</item>
+
+    </style>
+    <style name="prop_Button" parent="Base.Theme.Duangiaohang">
+        <item name="android:textSize">20dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_width">230dp</item>
+    </style>
+    <style name="prop_cccd" parent="Base.Theme.Duangiaohang">
+        <item name="android:layout_width">150dp</item>
+        <item name="android:layout_height">80dp</item>
+    </style>
+
+    <!--    style linearlayout quản lý giá trị input người dùng-->
+    <style name="style_linearLayoutManagerInput">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
+
+    <!--    style title add Product-->
+    <style name="style_titleAddProduct">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:textStyle">italic|bold</item>
+        <item name="android:textColor">#000</item>
+
+    </style>
+
 </resources>
