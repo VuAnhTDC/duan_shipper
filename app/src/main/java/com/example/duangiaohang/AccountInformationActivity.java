@@ -47,6 +47,7 @@ public class AccountInformationActivity extends AppCompatActivity implements Dia
     TextView tvSoDiaThoaiShipper, tvEmailShipper, tvDiaChiShipper, tvChangePassWordShipper, tvNameShipper, tvDangXuatShipper;
     private LoadingDialog loadingDialog; // Thêm biến LoadingDialog
     Context context;
+    private final int CHANGE_PASSWORD_REQUEST_CODE =1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,7 +120,7 @@ public class AccountInformationActivity extends AppCompatActivity implements Dia
                 Intent intent = new Intent(AccountInformationActivity.this, NewChangePassWordShipperActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.putExtra("idShipper", shipperData);
-                startActivity(intent);
+                startActivityForResult(intent, CHANGE_PASSWORD_REQUEST_CODE);
             }
         });
 
@@ -127,8 +128,8 @@ public class AccountInformationActivity extends AppCompatActivity implements Dia
         tvSoDiaThoaiShipper.setOnClickListener(v -> showCustomDialog("sdtShipper"));
         tvEmailShipper.setOnClickListener(v -> showCustomDialog("emailShipper"));
         tvDiaChiShipper.setOnClickListener(v -> showCustomDialog("diaChiShipper"));
-    }
 
+    }
     private void showCustomDialog(String fieldKey) {
         DialogForm dialogFragment = DialogForm.newInstance(fieldKey);
         dialogFragment.show(getSupportFragmentManager(), "CustomDialogFragment");
@@ -157,10 +158,10 @@ public class AccountInformationActivity extends AppCompatActivity implements Dia
 
         // Cập nhật TextView tương ứng với fieldKey
         TextView textViewToUpdate = findTextViewByFieldKey(fieldKey);
-        updateSharedPreferences(fieldKey,newData);
 
         if (textViewToUpdate != null) {
             textViewToUpdate.setText(newData);
+            updateSharedPreferences(fieldKey,newData);
         }
     }
 
@@ -184,6 +185,7 @@ public class AccountInformationActivity extends AppCompatActivity implements Dia
             default:
                 return null;
         }
+
     }
     private void updateSharedPreferences(String fieldKey, String newData) {
         SharedPreferences sharedPreferences = getSharedPreferences("informationShop", Context.MODE_PRIVATE);

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
+    android:background="#84C5D1"
+
     android:orientation="vertical"
     tools:context=".AccountInformationActivity">
 
@@ -202,9 +203,10 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:text="Đổi mật khẩu  >"
-            android:textColor="#000"
+            android:textColor="#000000"
             android:textSize="20dp"
-            android:textStyle="italic" />
+
+            android:textStyle="italic|bold" />
     </LinearLayout>
 
     <TextView

@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+
     tools:context=".NewChangePassWordShipperActivity"
+
     android:orientation="vertical">
 
     <androidx.core.widget.NestedScrollView
@@ -15,6 +17,7 @@
             android:id="@+id/vForgotPassword"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+
             android:orientation="vertical">
 
             <TextView

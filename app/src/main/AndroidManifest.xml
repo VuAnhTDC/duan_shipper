@@ -74,6 +74,7 @@
             android:exported="false" />
         <activity
             android:name=".QuenMatKhauShipperActivity"
+            android:theme="@style/NoActionBar"
             android:exported="false" />
         <activity
             android:name=".VerifyPhoneNumberActivity"
@@ -91,7 +92,6 @@
             android:exported="false" />
         <activity
             android:name=".DangNhapShipperActivity"
-
             android:exported="true"
             android:theme="@style/NoActionBar">
             <intent-filter>
