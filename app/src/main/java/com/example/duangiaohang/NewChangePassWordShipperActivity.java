@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -24,6 +25,9 @@ public class NewChangePassWordShipperActivity extends AppCompatActivity {
     TextInputEditText edtMatKhauMoi, edtNhapLaiMatKhauMoi;
     Button btnHoanThanh;
     View vNewPasswordForgot;
+    public static final String SHARED_PREF_NAME = "MyPrefs";
+    public static final String KEY_PASSWORD = "passwordShipper";
+
     Context context;
 
     @Override
@@ -86,33 +90,39 @@ public class NewChangePassWordShipperActivity extends AppCompatActivity {
         });
     }
 
-    private void updatePassword(){
+    private void updatePassword() {
         String matKhauMoi = edtMatKhauMoi.getText().toString();
         shipperData.setPassWordShipper(matKhauMoi);
 
-        System.out.println("abcd: " + shipperData.toString());
-
-        if(checkNewPassword()){
+        if (checkNewPassword()) {
             FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
             DatabaseReference shipperReference = firebaseDatabase.getReference("Shipper");
-            if(shipperReference != null){
-                shipperReference.child(shipperData.getIdShipper()).setValue(shipperData);
-                Intent intent = new Intent( NewChangePassWordShipperActivity.this, AccountInformationActivity.class);
-                // Thêm mật khẩu mới vào Intent
-                intent.putExtra("newPassword", shipperData.getPassWordShipper());
 
-                // Đặt kết quả là RESULT_OK và truyền Intent chứa dữ liệu
-                setResult(RESULT_OK, intent);
-                startActivity(intent);
-                Toast.makeText(this, "Thay đổi mật khẩu thành công!", Toast.LENGTH_SHORT).show();
+            // Thực hiện cập nhật mật khẩu lên Firebase
+            shipperReference.child(shipperData.getIdShipper()).child("passWordShipper").setValue(matKhauMoi);
 
+            // Thông báo cho người dùng về việc cập nhật mật khẩu thành công
+            Toast.makeText(this, "Thay đổi mật khẩu thành công!", Toast.LENGTH_SHORT).show();
+            savePasswordToSharedPreferences(matKhauMoi);
+            // Chuyển về màn hình thông tin tài khoản hoặc màn hình khác nếu cần
+            Intent intent = new Intent(NewChangePassWordShipperActivity.this, AccountInformationActivity.class);
+            startActivity(intent);
 
+            // Lưu mật khẩu vào SharedPreferences
 
-            }else {
-                Toast.makeText(this, "Thay đổi mật khẩu thất bại!!!", Toast.LENGTH_SHORT).show();
-            }
         }
     }
+
+    private void savePasswordToSharedPreferences(String password) {
+        // Lưu mật khẩu vào SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(KEY_PASSWORD, password);
+        editor.apply();
+    }
+
+
+
     private boolean checkNewPassword() {
         String matKhauMoi = edtMatKhauMoi.getText().toString();
         String nhapLaiMatKhau = edtNhapLaiMatKhauMoi.getText().toString();

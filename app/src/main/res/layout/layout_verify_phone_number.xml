@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#ABD6CD"
     tools:context=".VerifyPhoneNumberActivity">
 
     <ImageView
@@ -26,6 +27,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
             android:text="@string/x_c_nh_n_otp"
+
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -33,6 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:textStyle="bold|italic"
             android:layout_marginTop="16dp"
             android:text="@string/quy_tr_nh_g_i_m_c_th_m_t_v_i_ph_t"
             android:textSize="18sp" />
@@ -63,7 +66,7 @@
                 android:importantForAutofill="no"
                 android:inputType="number"
                 android:maxLength="1"
-                android:textColor="#000000"
+                android:textColor="#151515"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 tools:ignore="Labber for" />
@@ -155,8 +158,10 @@
                 android:id="@+id/btnXacMinh"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:textStyle="bold"
+                android:textColorHighlight="#000000"
                 android:layout_gravity="center"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="18dp"
                 android:background="@color/colorPrimary"
                 android:text="Xác Minh"
                 android:textColor="#fff" />

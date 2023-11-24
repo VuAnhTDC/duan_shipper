@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 
@@ -53,6 +55,10 @@ public class AccountInformationActivity extends AppCompatActivity implements Dia
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.account_information_layout);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
         SharedPreferences sharedPreferences1 = getSharedPreferences("informationShop", Context.MODE_PRIVATE);
         String jsonShop = sharedPreferences1.getString("informationShop", "");
 
@@ -67,6 +73,19 @@ public class AccountInformationActivity extends AppCompatActivity implements Dia
         setEvent();
 
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+            // Xử lý sự kiện khi nhấn nút quay về
+            onBackPressed();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 
     private void setEvent() {
         imgAnhDaiDienShipper.setOnClickListener(new View.OnClickListener() {
@@ -120,7 +139,8 @@ public class AccountInformationActivity extends AppCompatActivity implements Dia
                 Intent intent = new Intent(AccountInformationActivity.this, NewChangePassWordShipperActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.putExtra("idShipper", shipperData);
-                startActivityForResult(intent, CHANGE_PASSWORD_REQUEST_CODE);
+                startActivity(intent);
+      //          startActivityForResult(intent, CHANGE_PASSWORD_REQUEST_CODE);
             }
         });
 
@@ -152,7 +172,7 @@ public class AccountInformationActivity extends AppCompatActivity implements Dia
                     Toast.makeText(AccountInformationActivity.this, "Cập nhật dữ liệu thành công", Toast.LENGTH_SHORT).show();
                 })
                 .addOnFailureListener(e -> {
-                    // Xử lý khi cập nhật thất bại
+                    // Xử lýa khi cập nhật thất bại
                     Toast.makeText(AccountInformationActivity.this, "Lỗi khi cập nhật dữ liệu: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
 
@@ -165,6 +185,8 @@ public class AccountInformationActivity extends AppCompatActivity implements Dia
         }
     }
 
+
+
     @Override
     public void onCancel() {
 
@@ -172,6 +194,8 @@ public class AccountInformationActivity extends AppCompatActivity implements Dia
     // Phương thức cập nhật SharedPreferences
 
 
+
+    // Phương thức cập nhật SharedPreferences
     private TextView findTextViewByFieldKey(String fieldKey) {
         switch (fieldKey) {
             case "hoTenShipper":
@@ -185,8 +209,9 @@ public class AccountInformationActivity extends AppCompatActivity implements Dia
             default:
                 return null;
         }
-
     }
+
+// ...
 
     private void updateSharedPreferences(String fieldKey, String newData) {
         SharedPreferences sharedPreferences = getSharedPreferences("informationShop", Context.MODE_PRIVATE);
@@ -195,10 +220,48 @@ public class AccountInformationActivity extends AppCompatActivity implements Dia
         Gson gson = new Gson();
         String jsonShop = sharedPreferences.getString("informationShop", "");
         ShipperData shipperData = gson.fromJson(jsonShop, ShipperData.class);
+
+        // Cập nhật dữ liệu mới vào shipperData
+        switch (fieldKey) {
+            case "hoTenShipper":
+                shipperData.setHoTenShipper(newData);
+                break;
+            case "sdtShipper":
+                shipperData.setSdtShipper(newData);
+                break;
+            case "emailShipper":
+                shipperData.setEmailShipper(newData);
+                break;
+            case "diaChiShipper":
+                shipperData.setDiaChiShipper(newData);
+                break;
+        }
+
         editor.putString("informationShop", gson.toJson(shipperData));
         editor.apply();
         Toast.makeText(AccountInformationActivity.this, "Cập nhật dữ liệu share thành công", Toast.LENGTH_SHORT).show();
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

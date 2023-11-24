@@ -16,7 +16,8 @@
         android:id="@+id/editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#CD0C0C"
+        android:textColor="#151313"
+        android:background=""
         android:layout_marginBottom="20dp"
         android:hint="Enter text"/>
 

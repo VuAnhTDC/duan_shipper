@@ -14,7 +14,7 @@
         android:layout_gravity="center"
         android:layout_marginEnd="20dp"
         android:indeterminate="true"
-        android:indeterminateTint="#11E319"
+        android:indeterminateTint="#FD003B"
 
 
         android:progressDrawable="@drawable/shape_procress" />
@@ -27,6 +27,6 @@
 
         android:gravity="center"
         android:text="@string/please_wait"
-        android:textColor="#0BE114"
+        android:textColor="#E10B0B"
         android:textSize="20sp" />
 </LinearLayout>
