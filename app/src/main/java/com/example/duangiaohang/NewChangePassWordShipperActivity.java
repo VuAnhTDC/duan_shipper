@@ -30,14 +30,13 @@ public class NewChangePassWordShipperActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_password_change_shipper_forgot_layout);
+        context = this;
         setControl();
         setEvent();
         Intent intent = getIntent();
         shipperData = (ShipperData) intent.getSerializableExtra("idShipper");
-
-        assert shipperData != null;
         System.out.println("Shipper1111111:" + shipperData);
-        context = this;
+
 
     }
     private void setEvent() {

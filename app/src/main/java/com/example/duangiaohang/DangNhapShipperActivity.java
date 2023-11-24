@@ -67,9 +67,8 @@ public class DangNhapShipperActivity extends AppCompatActivity {
         tvQuenMkShipper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DangNhapShipperActivity.this, NewChangePassWordShipperActivity.class);
-                //   intent.putExtra(E,edtTitle.getText().toString());
-                //   intent.putExtra(DESCRIPTION,edtDescription.getText().toString());
+                Intent intent = new Intent(DangNhapShipperActivity.this, ChangePassWorkInfoShipperActivity.class);
+
                 startActivity(intent);
 
 

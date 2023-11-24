@@ -19,6 +19,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+
+import com.example.duangiaohang.Class.DialogForm;
 import com.example.duangiaohang.Class.LoadingDialog;
 import com.example.duangiaohang.Models.ShipperData;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,7 +35,7 @@ import com.google.firebase.storage.UploadTask;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
-public class AccountInformationActivity extends AppCompatActivity {
+public class AccountInformationActivity extends AppCompatActivity implements DialogForm.UpdateDataListener {
     private static final int PICK_IMAGE_REQUEST = 2;
     private static final int REQUEST_IMAGE_PICKER = 123;
     ShipperData shipperData = new ShipperData();
@@ -91,7 +93,6 @@ public class AccountInformationActivity extends AppCompatActivity {
                 }
 
 
-
             }
         });
 
@@ -115,20 +116,94 @@ public class AccountInformationActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-            Intent intent = new Intent(AccountInformationActivity.this,NewChangePassWordShipperActivity.class );
-     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                Intent intent = new Intent(AccountInformationActivity.this, NewChangePassWordShipperActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 intent.putExtra("idShipper", shipperData);
-             startActivity(intent);
+                startActivity(intent);
             }
         });
 
+        tvNameShipper.setOnClickListener(v -> showCustomDialog("hoTenShipper"));
+        tvSoDiaThoaiShipper.setOnClickListener(v -> showCustomDialog("sdtShipper"));
+        tvEmailShipper.setOnClickListener(v -> showCustomDialog("emailShipper"));
+        tvDiaChiShipper.setOnClickListener(v -> showCustomDialog("diaChiShipper"));
     }
+
+    private void showCustomDialog(String fieldKey) {
+        DialogForm dialogFragment = DialogForm.newInstance(fieldKey);
+        dialogFragment.show(getSupportFragmentManager(), "CustomDialogFragment");
+    }
+
+    @Override
+    public void onUpdateData(String fieldKey, String newData) {
+        // Xử lý cập nhật dữ liệu lên Firebase
+
+        String databasePath = "Shipper/" + shipperData.getIdShipper() + "/" + fieldKey;
+
+        // Lấy DatabaseReference tới đường dẫn
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(databasePath);
+
+        // Thực hiện cập nhật dữ liệu
+        databaseReference.setValue(newData)
+                .addOnSuccessListener(aVoid -> {
+                    // Cập nhật thành công
+                    Toast.makeText(AccountInformationActivity.this, "Cập nhật dữ liệu thành công", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> {
+                    // Xử lý khi cập nhật thất bại
+                    Toast.makeText(AccountInformationActivity.this, "Lỗi khi cập nhật dữ liệu: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+
+
+        // Cập nhật TextView tương ứng với fieldKey
+        TextView textViewToUpdate = findTextViewByFieldKey(fieldKey);
+        updateSharedPreferences(fieldKey,newData);
+
+        if (textViewToUpdate != null) {
+            textViewToUpdate.setText(newData);
+        }
+    }
+
+    @Override
+    public void onCancel() {
+
+    }
+    // Phương thức cập nhật SharedPreferences
+
+
+    private TextView findTextViewByFieldKey(String fieldKey) {
+        switch (fieldKey) {
+            case "hoTenShipper":
+                return findViewById(R.id.tvNameShipper);
+            case "sdtShipper":
+                return findViewById(R.id.tvPhoneNumberShipper);
+            case "emailShipper":
+                return findViewById(R.id.tvEmailShipper);
+            case "diaChiShipper":
+                return findViewById(R.id.tvDiaChiShipper);
+            default:
+                return null;
+        }
+    }
+    private void updateSharedPreferences(String fieldKey, String newData) {
+        SharedPreferences sharedPreferences = getSharedPreferences("informationShop", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        Gson gson = new Gson();
+        String jsonShop = sharedPreferences.getString("informationShop", "");
+        ShipperData shipperData = gson.fromJson(jsonShop, ShipperData.class);
+        editor.putString("informationShop", gson.toJson(shipperData));
+        editor.apply();
+        Toast.makeText(AccountInformationActivity.this, "Cập nhật dữ liệu share thành công", Toast.LENGTH_SHORT).show();
+    }
+
 
 
     private void openGallery() {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST);
     }
+
     private void openGallery1() {
         Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
         galleryIntent.setType("image/*");

@@ -38,22 +38,27 @@
         tools:targetApi="31">
         <activity
             android:name=".NewPasswordShipperForgotActivity"
+            android:theme="@style/NoActionBar"
             android:exported="false" />
 
         <activity
             android:name=".NewChangePassWordShipperActivity"
+            android:theme="@style/NoActionBar"
             android:exported="false" />
 
         <activity
-            android:name=".NewChangePassWordShipperActivity"
+            android:name=".ChangePassWorkInfoShipperActivity"
+            android:theme="@style/NoActionBar"
             android:exported="false"
     />
         <activity
             android:name=".AccountInformationActivity"
+            android:theme="@style/NoActionBar"
             android:exported="false"
           />
         <activity
             android:name=".HomeActivity"
+
             android:exported="false" />
         <activity
             android:name=".ManHinhDonHangActivity"
@@ -72,9 +77,11 @@
             android:exported="false" />
         <activity
             android:name=".VerifyPhoneNumberActivity"
+            android:theme="@style/NoActionBar"
             android:exported="false" />
         <activity
             android:name=".DangKiShipperActivity"
+            android:theme="@style/NoActionBar"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -84,6 +91,7 @@
             android:exported="false" />
         <activity
             android:name=".DangNhapShipperActivity"
+
             android:exported="true"
             android:theme="@style/NoActionBar">
             <intent-filter>
