@@ -47,7 +47,7 @@ public class AccountInformationActivity extends AppCompatActivity implements Dia
     TextView tvSoDiaThoaiShipper, tvEmailShipper, tvDiaChiShipper, tvChangePassWordShipper, tvNameShipper, tvDangXuatShipper;
     private LoadingDialog loadingDialog; // Thêm biến LoadingDialog
     Context context;
-    private final int CHANGE_PASSWORD_REQUEST_CODE =1;
+    private final int CHANGE_PASSWORD_REQUEST_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,6 +130,7 @@ public class AccountInformationActivity extends AppCompatActivity implements Dia
         tvDiaChiShipper.setOnClickListener(v -> showCustomDialog("diaChiShipper"));
 
     }
+
     private void showCustomDialog(String fieldKey) {
         DialogForm dialogFragment = DialogForm.newInstance(fieldKey);
         dialogFragment.show(getSupportFragmentManager(), "CustomDialogFragment");
@@ -158,10 +159,9 @@ public class AccountInformationActivity extends AppCompatActivity implements Dia
 
         // Cập nhật TextView tương ứng với fieldKey
         TextView textViewToUpdate = findTextViewByFieldKey(fieldKey);
-
         if (textViewToUpdate != null) {
             textViewToUpdate.setText(newData);
-            updateSharedPreferences(fieldKey,newData);
+            updateSharedPreferences(fieldKey, newData);
         }
     }
 
@@ -187,6 +187,7 @@ public class AccountInformationActivity extends AppCompatActivity implements Dia
         }
 
     }
+
     private void updateSharedPreferences(String fieldKey, String newData) {
         SharedPreferences sharedPreferences = getSharedPreferences("informationShop", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -217,105 +218,126 @@ public class AccountInformationActivity extends AppCompatActivity implements Dia
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+        switch (requestCode) {
+            case PICK_IMAGE_REQUEST:
+                handleImagePickerResult(resultCode, data);
+                break;
+            case CHANGE_PASSWORD_REQUEST_CODE:
+              //  handlePasswordChangeResult(resultCode, data);
+                break;
+        }
+    }
+
+    private void handlePasswordChangeResult(int resultCode, Intent data) {
+
+        if (resultCode == RESULT_OK) {
+            String newPassword = data.getStringExtra("newPassword");
+       //     updateSharedPreferences("passwordShipper", newPassword);
+        }
+    }
+
+
+
+
+
+
+    private void uploadImageToFirebaseStorage () {
+            StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+
+            String[] part = UriStrImageAvater.getLastPathSegment().split("/");
+            Log.i("TAG", "IMG" + UriStrImageAvater);
+            StorageReference imgRef = storageRef.child("ImagerUserShipper/" + shipperData.getSdtShipper() + "/" + (part[part.length - 1]));
+            UploadTask uploadTask = imgRef.putFile(UriStrImageAvater);
+            uploadTask.addOnCompleteListener(taskSnapshot -> {
+                imgRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                    shipperData.setUrlImgShopAvatar(uri.toString());
+                    updateUrlImageInDatabase(shipperData.getUrlImgShopAvatar());
+
+
+                }).addOnFailureListener(e -> {
+                    Toast.makeText(context, "Lỗi khi tải ảnh lên" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+            });
+        }
+
+        private void updateUrlImageInDatabase (String imageUrl){
+            // Kiểm tra xem shipperData và idShipper có giá trị không
+            if (shipperData != null && !shipperData.getIdShipper().isEmpty()) {
+                // Thực hiện cập nhật URL vào Firebase Realtime Database
+                DatabaseReference shipperRef = firebaseDatabase.getReference("Shipper").child(shipperData.getIdShipper());
+                shipperRef.child("urlImgShopAvatar").setValue(imageUrl)
+                        .addOnSuccessListener(aVoid -> {
+                            // Cập nhật thành công
+                            Toast.makeText(AccountInformationActivity.this, "Cập nhật URL thành công", Toast.LENGTH_SHORT).show();
+                        })
+                        .addOnFailureListener(e -> {
+                            // Xử lý khi cập nhật thất bại
+                            Toast.makeText(AccountInformationActivity.this, "Lỗi khi cập nhật URL: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        });
+            } else {
+                // Xử lý khi shipperData hoặc idShipper không hợp lệ
+                Toast.makeText(AccountInformationActivity.this, "Không thể cập nhật URL, dữ liệu không hợp lệ", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+
+        private void setControl () {
+
+            imgAnhDaiDienShipper = findViewById(R.id.imgAvartarShipper);
+            tvSoDiaThoaiShipper = findViewById(R.id.tvPhoneNumberShipper);
+            tvEmailShipper = findViewById(R.id.tvEmailShipper);
+            tvDiaChiShipper = findViewById(R.id.tvDiaChiShipper);
+            tvChangePassWordShipper = findViewById(R.id.tvChangePasswordShipper);
+            tvDangXuatShipper = findViewById(R.id.tvLogOutShipper);
+            tvNameShipper = findViewById(R.id.tvNameShipper);
+
+        }
+
+        public void getInformationShipper (String idShipper){
+
+            tvNameShipper.setText(shipperData.getHoTenShipper());
+            tvEmailShipper.setText(shipperData.getEmailShipper());
+            tvSoDiaThoaiShipper.setText(shipperData.getSdtShipper());
+            tvDiaChiShipper.setText(shipperData.getDiaChiShipper());
+        }
+
+        public void getInfortionImageShipper (String idShop){
+            firebaseDatabase = FirebaseDatabase.getInstance();
+            databaseReference = firebaseDatabase.getReference("Shipper/" + idShop);
+            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    Log.i("TAG", "MESS" + snapshot);
+                    // Kiểm tra xem có dữ liệu và có các nút con không
+                    if (snapshot.exists() && snapshot.hasChildren()) {
+                        shipperData = snapshot.getValue(ShipperData.class);
+
+                        assert shipperData != null;
+                        if (shipperData.getUrlImgShopAvatar().isEmpty()) {
+                            imgAnhDaiDienShipper.setImageResource(R.drawable.user_shield_480px);
+                        } else {
+                            Picasso.get().load(shipperData.getUrlImgShopAvatar()).placeholder(R.drawable.ic_launcher_background).into(imgAnhDaiDienShipper);
+                        }
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(AccountInformationActivity.this, "No Image Avatar", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+
+    private void handleImagePickerResult(int resultCode, Intent data) {
+
+        if (resultCode == RESULT_OK && data != null && data.getData() != null) {
             Uri selectedImageUri = data.getData();
             imgAnhDaiDienShipper.setImageURI(selectedImageUri);
-
-            // Gán giá trị cho UriStrImageAvater
             UriStrImageAvater = selectedImageUri;
-
-            // Tải ảnh lên Firebase Storage và lưu URL vào Firebase Realtime Database
             uploadImageToFirebaseStorage();
         }
-    }
-
-
-    private void uploadImageToFirebaseStorage() {
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-
-        String[] part = UriStrImageAvater.getLastPathSegment().split("/");
-        Log.i("TAG", "IMG" + UriStrImageAvater);
-        StorageReference imgRef = storageRef.child("ImagerUserShipper/" + shipperData.getSdtShipper() + "/" + (part[part.length - 1]));
-        UploadTask uploadTask = imgRef.putFile(UriStrImageAvater);
-        uploadTask.addOnCompleteListener(taskSnapshot -> {
-            imgRef.getDownloadUrl().addOnSuccessListener(uri -> {
-                shipperData.setUrlImgShopAvatar(uri.toString());
-                updateUrlImageInDatabase(shipperData.getUrlImgShopAvatar());
-
-
-            }).addOnFailureListener(e -> {
-                Toast.makeText(context, "Lỗi khi tải ảnh lên" + e.getMessage(), Toast.LENGTH_SHORT).show();
-            });
-        });
-    }
-
-    private void updateUrlImageInDatabase(String imageUrl) {
-        // Kiểm tra xem shipperData và idShipper có giá trị không
-        if (shipperData != null && !shipperData.getIdShipper().isEmpty()) {
-            // Thực hiện cập nhật URL vào Firebase Realtime Database
-            DatabaseReference shipperRef = firebaseDatabase.getReference("Shipper").child(shipperData.getIdShipper());
-            shipperRef.child("urlImgShopAvatar").setValue(imageUrl)
-                    .addOnSuccessListener(aVoid -> {
-                        // Cập nhật thành công
-                        Toast.makeText(AccountInformationActivity.this, "Cập nhật URL thành công", Toast.LENGTH_SHORT).show();
-                    })
-                    .addOnFailureListener(e -> {
-                        // Xử lý khi cập nhật thất bại
-                        Toast.makeText(AccountInformationActivity.this, "Lỗi khi cập nhật URL: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    });
-        } else {
-            // Xử lý khi shipperData hoặc idShipper không hợp lệ
-            Toast.makeText(AccountInformationActivity.this, "Không thể cập nhật URL, dữ liệu không hợp lệ", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-
-    private void setControl() {
-
-        imgAnhDaiDienShipper = findViewById(R.id.imgAvartarShipper);
-        tvSoDiaThoaiShipper = findViewById(R.id.tvPhoneNumberShipper);
-        tvEmailShipper = findViewById(R.id.tvEmailShipper);
-        tvDiaChiShipper = findViewById(R.id.tvDiaChiShipper);
-        tvChangePassWordShipper = findViewById(R.id.tvChangePasswordShipper);
-        tvDangXuatShipper = findViewById(R.id.tvLogOutShipper);
-        tvNameShipper = findViewById(R.id.tvNameShipper);
-
-    }
-
-    public void getInformationShipper(String idShipper) {
-
-        tvNameShipper.setText(shipperData.getHoTenShipper());
-        tvEmailShipper.setText(shipperData.getEmailShipper());
-        tvSoDiaThoaiShipper.setText(shipperData.getSdtShipper());
-        tvDiaChiShipper.setText(shipperData.getDiaChiShipper());
-    }
-
-    public void getInfortionImageShipper(String idShop) {
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("Shipper/" + idShop);
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Log.i("TAG", "MESS" + snapshot);
-                // Kiểm tra xem có dữ liệu và có các nút con không
-                if (snapshot.exists() && snapshot.hasChildren()) {
-                    shipperData = snapshot.getValue(ShipperData.class);
-
-                    assert shipperData != null;
-                    if (shipperData.getUrlImgShopAvatar().isEmpty()) {
-                        imgAnhDaiDienShipper.setImageResource(R.drawable.user_shield_480px);
-                    } else {
-                        Picasso.get().load(shipperData.getUrlImgShopAvatar()).placeholder(R.drawable.ic_launcher_background).into(imgAnhDaiDienShipper);
-                    }
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(AccountInformationActivity.this, "No Image Avatar", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 }
 

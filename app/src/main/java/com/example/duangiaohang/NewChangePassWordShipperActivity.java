@@ -97,10 +97,17 @@ public class NewChangePassWordShipperActivity extends AppCompatActivity {
             DatabaseReference shipperReference = firebaseDatabase.getReference("Shipper");
             if(shipperReference != null){
                 shipperReference.child(shipperData.getIdShipper()).setValue(shipperData);
-                Toast.makeText(this, "Thay đổi mật khẩu thành công!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent( NewChangePassWordShipperActivity.this, AccountInformationActivity.class);
+                // Thêm mật khẩu mới vào Intent
+                intent.putExtra("newPassword", shipperData.getPassWordShipper());
+
+                // Đặt kết quả là RESULT_OK và truyền Intent chứa dữ liệu
+                setResult(RESULT_OK, intent);
                 startActivity(intent);
-                finish();
+                Toast.makeText(this, "Thay đổi mật khẩu thành công!", Toast.LENGTH_SHORT).show();
+
+
+
             }else {
                 Toast.makeText(this, "Thay đổi mật khẩu thất bại!!!", Toast.LENGTH_SHORT).show();
             }
