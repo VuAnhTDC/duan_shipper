@@ -81,6 +81,7 @@ public class ChangePassWorkInfoShipperActivity extends AppCompatActivity {
                     }
                     if (phoneAuthCredential != null) {
                         verifyForgotPWSuccessul(phoneAuthCredential);
+
                     }
                 }
             }
@@ -154,7 +155,7 @@ public class ChangePassWorkInfoShipperActivity extends AppCompatActivity {
                            //     Query query = databaseReference.child(edtSoDienThoai.getText().toString()).getParent();
                                 System.out.println(edtSoDienThoai.toString());
 
-                                query.addListenerForSingleValueEvent(new ValueEventListener() {
+                                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                                         if (snapshot.exists()) {
@@ -171,11 +172,10 @@ public class ChangePassWorkInfoShipperActivity extends AppCompatActivity {
                                                     Log.d("YourTag", "Found a match for idShipper: " + idShipperValue);
 
                                                     // Tiếp tục xử lý khi tìm thấy giá trị khớp
-                                                    Intent intent1 = new Intent(context, NewPasswordShipperForgotActivity.class);
+                                                    Intent intent1 = new Intent(ChangePassWorkInfoShipperActivity.this, NewPasswordShipperForgotActivity.class);
                                                     intent1.putExtra("idShipper", shipperData);
                                                     startActivity(intent1);
-                                                    finish();
-                                                    return;
+
                                                 }
                                             }
 

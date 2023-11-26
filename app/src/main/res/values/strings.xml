@@ -32,4 +32,17 @@
     <string name="ti_p_t_c">Tiếp tục</string>
     <string name="m_x_c_th_c_otp">Mã xác thực OTP</string>
     <string name="s_i_n_tho_i">Số điện thoại</string>
+    <string name="i_m_t_kh_u"><![CDATA[Đổi mật khẩu >]]></string>
+    <string name="ng_xu_t_t_i_kho_n">Đăng xuất tài khoản</string>
+    <string name="a_ch">Địa chỉ</string>
+    <string name="da_ch">Địa Chỉ</string>
+    <string name="email">Email</string>
+    <string name="i_n_tho_i">Điện thoại</string>
+    <string name="i_fn_tho_i">Điện thoại</string>
+    <string name="t_n_shipper">Tên Shipper</string>
+    <string name="t_n_ng_i_shipper">Tên Người Shipper</string>
+    <string name="nh_i_di_n">Ảnh đại diện</string>
+    <string name="nh_p_m_t_kh_u_m_i">Nhập mật khẩu mới</string>
+    <string name="m_t_kh_u_m_i">Mật khẩu mới</string>
+    <string name="nh_p_l_i_m_t_kh_u">Nhập lại mật khẩu</string>
 </resources>

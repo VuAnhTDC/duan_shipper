@@ -21,6 +21,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class NewChangePassWordShipperActivity extends AppCompatActivity {
+
+     // CHUYỂN VỀINFO
     ShipperData shipperData = new ShipperData();
     TextInputEditText edtMatKhauMoi, edtNhapLaiMatKhauMoi;
     Button btnHoanThanh;
@@ -40,8 +42,7 @@ public class NewChangePassWordShipperActivity extends AppCompatActivity {
         Intent intent = getIntent();
         shipperData = (ShipperData) intent.getSerializableExtra("idShipper");
         System.out.println("Shipper1111111:" + shipperData);
-
-
+        /// Rtruyền Sang Inffo
     }
     private void setEvent() {
         btnHoanThanh.setOnClickListener(new View.OnClickListener() {

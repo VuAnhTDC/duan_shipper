@@ -19,23 +19,24 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Ảnh đại diện"
+            android:text="@string/nh_i_di_n"
             android:textColor="#000"
-            android:textSize="18dp"
-            android:textStyle="bold" />
+            android:textSize="18sp"
+            android:textStyle="bold"
+          />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imgAvartarShipper"
             android:layout_width="90dp"
             android:layout_height="90dp"
-            android:layout_marginLeft="120dp"
+            android:layout_marginStart="120dp"
             android:src="@drawable/ic_launcher_background"
             app:civ_border_width="1dp" />
     </LinearLayout>
@@ -49,25 +50,25 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:text="Tên Người Shipper"
+            android:text="@string/t_n_ng_i_shipper"
             android:textColor="#000"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvNameShipper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:text="Tên Shipper"
+            android:layout_marginStart="15dp"
+            android:text="@string/t_n_shipper"
             android:textColor="#000"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
     </LinearLayout>
 
 
@@ -81,25 +82,26 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:text="Điện thoại"
+            android:text="@string/i_fn_tho_i"
             android:textColor="#000"
-            android:textSize="18dp"
-            android:textStyle="bold" />
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/tvPhoneNumberShipper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:text="Điện thoại"
+            android:layout_marginStart="15dp"
+            android:text="@string/i_n_tho_i"
             android:textColor="#000"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
     </LinearLayout>
 
     <TextView
@@ -119,25 +121,26 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:text="Email"
+            android:text="@string/email"
             android:textColor="#000"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvEmailShipper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
             android:text="Email"
             android:textColor="#000"
-            android:textSize="20dp" />
+            android:textSize="20sp"
+            tools:ignore="HardcodedText" />
     </LinearLayout>
 
     <TextView
@@ -149,37 +152,38 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:text="Địa chỉ"
+            android:text="@string/a_ch"
             android:textColor="#000"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvDiaChiShipper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:text="Địa chỉ"
+            android:layout_marginStart="15dp"
+            android:text="@string/da_ch"
             android:textColor="#000"
-            android:textSize="20dp" />
+            android:textSize="20sp"
+           />
     </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="1.5dp"
         android:layout_marginTop="2dp"
-        android:background="#B0B0B0" />
+        android:background="#AA8F8F" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
         android:orientation="vertical">
 
     </LinearLayout>
@@ -193,7 +197,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
         android:orientation="vertical">
 
         <TextView
@@ -202,9 +206,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:text="Đổi mật khẩu  >"
+            android:text="@string/i_m_t_kh_u"
             android:textColor="#000000"
-            android:textSize="20dp"
+            android:textSize="20sp"
 
             android:textStyle="italic|bold" />
     </LinearLayout>
@@ -221,9 +225,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:gravity="center"
-        android:text="Đăng xuất tài khoản"
+        android:text="@string/ng_xu_t_t_i_kho_n"
         android:textColor="#FF0000"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textStyle="bold|italic" />
 
 </LinearLayout>
