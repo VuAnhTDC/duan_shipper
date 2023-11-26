@@ -7,99 +7,66 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-
-import com.example.duangiaohang.Models.Image;
+import com.example.duangiaohang.DetailDeliveringOrderActivity;
+import com.example.duangiaohang.DetailReceiveOrderActivity;
+import com.example.duangiaohang.Models.Customer;
 import com.example.duangiaohang.Models.OrderData;
 import com.example.duangiaohang.Models.ShopData;
-import com.example.duangiaohang.OrderDetailsNeedDelivereActivity;
 import com.example.duangiaohang.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
 import com.squareup.picasso.Picasso;
-
 
 import java.util.ArrayList;
 import java.util.Objects;
 
-
-public class CustomAdapterHomeShipper extends RecyclerView.Adapter<HomeShipperViewHolder> {
-
-    ArrayList<OrderData> orderDataArrayList = new ArrayList<>();
+public class CustomerAdapterDeliveringOrder extends RecyclerView.Adapter<ManagerOderViewHolder> {
+    ArrayList<OrderData> list = new ArrayList<>();
     Context context;
     DatabaseReference databaseReference;
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
-    public CustomAdapterHomeShipper(ArrayList<OrderData> orderDataArrayList, Context context) {
-        this.orderDataArrayList = orderDataArrayList;
+    public CustomerAdapterDeliveringOrder(ArrayList<OrderData> list, Context context) {
+        this.list = list;
         this.context = context;
     }
 
-
     @NonNull
     @Override
-    public HomeShipperViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new HomeShipperViewHolder(LayoutInflater.from(context).inflate(R.layout.item_mh_trangchu_shipper, parent, false));
-
+    public ManagerOderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new ManagerOderViewHolder(LayoutInflater.from(context).inflate(R.layout.item_oder,parent,false));
     }
 
-    @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull HomeShipperViewHolder holder, int position) {
-        OrderData orderData = orderDataArrayList.get(position);
-        if (orderData != null) {
+    public void onBindViewHolder(@NonNull ManagerOderViewHolder holder, int position) {
+        OrderData orderData = list.get(position);
+        if (orderData != null){
             holder.tvMaDonHangTC.setText("Mã Đơn: "+orderData.getIdOrder());
-            getShopAddress(orderData.getIdShop_Order(), holder);
+            getCustomerAddress(orderData.getIdCustomer_Order(), holder);
             getImageProduct(orderData.getIdProduct_Order(), holder);
             final int finalPosition = position;
             holder.card_Item_oder.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(context, OrderDetailsNeedDelivereActivity.class);
-                    OrderData orderData1 = orderDataArrayList.get(finalPosition);
-                    intent.putExtra("orderData1", orderData1);
+                    Intent intent = new Intent(context, DetailDeliveringOrderActivity.class);
+                    OrderData orderData1 = list.get(finalPosition);
+                    intent.putExtra("DeliveringOrderData", orderData1);
                     System.out.println("Dữ liệu truyền đi tại OrderItem: " + orderData1);
                     context.startActivity(intent);
                 }
             });
         }
-    }
 
-    private void getShopAddress(String idShop, HomeShipperViewHolder holder) {
-        databaseReference = firebaseDatabase.getReference("Shop/" + idShop);
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    ShopData shopData = snapshot.getValue(ShopData.class);
-                    if (shopData != null) {
-                        Log.d("ShopData", "ShopAddress: " + shopData.getShopAddress());
-                        holder.tvDiaChiNhanHangTC.setText("địa chỉ: "+shopData.getShopAddress());
-                    }
-                }else {
-                    System.out.println("không tìm lấy dữ liệu shop ");
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("FirebaseError", "Error getting shop data: " + error.getMessage());
-            }
-        });
     }
-
-    private void getImageProduct(String idProduct, HomeShipperViewHolder holder) {
-        databaseReference = firebaseDatabase.getReference("ImageProducts/"+idProduct);
+    private void getImageProduct(String idProductOrder, ManagerOderViewHolder holder) {
+        databaseReference = firebaseDatabase.getReference("ImageProducts/"+idProductOrder);
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -122,9 +89,32 @@ public class CustomAdapterHomeShipper extends RecyclerView.Adapter<HomeShipperVi
             }
         });
     }
-        @Override
-        public int getItemCount () {
-            return orderDataArrayList.size();
-        }
+    private void getCustomerAddress(String idCustomerOrder, ManagerOderViewHolder holder) {
+        databaseReference = firebaseDatabase.getReference("Customer/" + idCustomerOrder);
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    Customer customer = snapshot.getValue(Customer.class);
+                    if (customer != null) {
+                        System.out.println("ShopAddress: " + customer.getAddress());
+                        holder.tvDiaChiNhanHangTC.setText("địa chỉ: "+customer.getAddress());
+                    }
+                }else {
+                    System.out.println("không tìm lấy dữ liệu shop ");
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("FirebaseError", "Error getting shop data: " + error.getMessage());
+            }
+        });
+
     }
 
+    @Override
+    public int getItemCount() {
+        return list.size();
+    }
+}

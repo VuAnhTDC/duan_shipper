@@ -16,7 +16,7 @@ import java.util.List;
 public class ManHinhNhanHangActivity extends AppCompatActivity {
 
     private RecyclerView recUsersShipper;
-    private CustomAdapterNhanHangActivity customAdapterNhanHangActivity;
+//    private CustomAdapterNhanHangActivity customAdapterNhanHangActivity;
 
 
     @Override
@@ -28,8 +28,8 @@ public class ManHinhNhanHangActivity extends AppCompatActivity {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recUsersShipper.setLayoutManager(linearLayoutManager);
-        customAdapterNhanHangActivity = new CustomAdapterNhanHangActivity(getListUserShipper());
-        recUsersShipper.setAdapter(customAdapterNhanHangActivity);
+//        customAdapterNhanHangActivity = new CustomAdapterNhanHangActivity(getListUserShipper());
+//        recUsersShipper.setAdapter(customAdapterNhanHangActivity);
         //tạo đường kẻ cho list
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
 

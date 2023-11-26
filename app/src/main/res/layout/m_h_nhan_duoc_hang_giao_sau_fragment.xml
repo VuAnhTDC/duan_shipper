@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
-    tools:context=".MHNhanDonHang_GiaoSauFragment">
+    tools:context=".Fragment.MHNhanDonHang_GiaoSauFragment">
 
 
   <LinearLayout

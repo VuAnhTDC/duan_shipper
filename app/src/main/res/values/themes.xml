@@ -1,10 +1,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.Duangiaohang" parent="Theme.Material3.DayNight">
+    <style name="Base.Theme.Duangiaohang" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="mytheme" parent="Theme.AppCompat.Light.DarkActionBar"/>
+    <style name="mytheme" parent="Theme.AppCompat.Light.NoActionBar"/>
     <style name="Theme.Duangiaohang" parent="Base.Theme.Duangiaohang" />
 </resources>

@@ -39,22 +39,22 @@
         android:label=""
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Duangiaohang"
+        android:theme="@style/Base.Theme.Duangiaohang"
         tools:targetApi="31">
+        <activity
+            android:name=".DetailNotDeliveryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DetailDeliveringOrderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DetailReceiveOrderActivity"
+            android:exported="false" />
         <activity
             android:name=".HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".ManHinhDonHangActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ManHinhNhanDuocHangActivity"
-            android:exported="false" />
-        <activity
             android:name=".ManHinhNhanHangActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ScreenNhanDuocHangShipper"
             android:exported="false" />
         <activity
             android:name=".QuenMatKhauShipperActivity"
@@ -66,19 +66,14 @@
             android:name=".DangKiShipperActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
-            android:exported="false" />
-
-        <activity
             android:name=".OrderDetailsNeedDelivereActivity"
             android:exported="false" />
-
-
         <activity
             android:name=".DangNhapShipperActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

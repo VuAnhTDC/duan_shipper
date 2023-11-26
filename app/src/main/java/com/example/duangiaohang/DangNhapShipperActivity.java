@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.duangiaohang.Class.RegexValiDate;
 import com.example.duangiaohang.Class.ShowMessage;
 import com.example.duangiaohang.Models.ShipperData;
 //import com.example.duangiaohang.RecyclerView.MHTrangChuShipperAdapter;
@@ -28,8 +29,6 @@ public class DangNhapShipperActivity extends AppCompatActivity {
     EditText edtEmailShipper, edtMatKhauShipper;
     Button btnDangNhap;
     Context context;
-
-
     DatabaseReference databaseReference;
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
