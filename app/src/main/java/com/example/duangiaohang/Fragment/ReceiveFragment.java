@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.duangiaohang.Models.OrderData;
@@ -30,6 +31,7 @@ public class ReceiveFragment extends Fragment {
 
     // fragment 1 **************************************
     View view;
+    ImageView img_NotDelivery;
     RecyclerView rcv_Receive;
     CustomAdapterReceiveOrder customAdapterReceiveOrder;
     DatabaseReference databaseReference;
@@ -46,7 +48,7 @@ public class ReceiveFragment extends Fragment {
 
     private void getListItemOrder() {
         databaseReference = firebaseDatabase.getReference("OrderProduct");
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -58,6 +60,13 @@ public class ReceiveFragment extends Fragment {
                         if (orderData.getStatusOrder()==2){
                             orderDataArrayList.add(orderData);
                             customAdapterReceiveOrder.notifyDataSetChanged();
+                        }
+                        if (orderDataArrayList.size() <= 0) {
+                            img_NotDelivery.setVisibility(View.VISIBLE);
+                            rcv_Receive.setVisibility(View.GONE);
+                        } else {
+                            img_NotDelivery.setVisibility(View.GONE);
+                            rcv_Receive.setVisibility(View.VISIBLE);
                         }
                     }
                 }
@@ -73,7 +82,6 @@ public class ReceiveFragment extends Fragment {
         customAdapterReceiveOrder = new CustomAdapterReceiveOrder(orderDataArrayList, requireContext());
         rcv_Receive.setLayoutManager(new LinearLayoutManager(requireContext()));
         rcv_Receive.setAdapter(customAdapterReceiveOrder);
-        customAdapterReceiveOrder.notifyDataSetChanged();
 
     }
 
@@ -81,5 +89,6 @@ public class ReceiveFragment extends Fragment {
         rcv_Receive = view.findViewById(R.id.rcv_Receive_Fraggment);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL);
         rcv_Receive.addItemDecoration(dividerItemDecoration);
+        img_NotDelivery = view.findViewById(R.id.img_no_delivery_ReceiveFragment);
     }
 }

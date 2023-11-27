@@ -11,10 +11,8 @@ import com.example.duangiaohang.Fragment.NotDeliveryFragment;
 import com.example.duangiaohang.Fragment.ReceiveFragment;
 import com.google.firebase.database.annotations.Nullable;
 
-public class Order_ListViewPagerAdapter extends FragmentStatePagerAdapter {
-
-
-    public Order_ListViewPagerAdapter(@NonNull FragmentManager fm) {
+public class OrderStatusListViewPageAdapter extends FragmentStatePagerAdapter {
+    public OrderStatusListViewPageAdapter(@NonNull FragmentManager fm) {
         super(fm);
     }
 
@@ -23,15 +21,12 @@ public class Order_ListViewPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new ReceiveFragment();
+                return new DeliveredSuccessfullyFragment();
             case 1:
-                return new DeliveringFragment();
-//            case 2:
-//                return new DeliveredSuccessfullyFragment();
-//            case 3:
-//                return new NotDeliveryFragment();
+                return new NotDeliveryFragment();
         }
-        return new ReceiveFragment();
+        return new DeliveredSuccessfullyFragment();
+
     }
     @Override
     public int getCount() {
@@ -43,17 +38,11 @@ public class Order_ListViewPagerAdapter extends FragmentStatePagerAdapter {
         String title = "";
         switch (position) {
             case 0:
-                title = "nhận hàng";
+                title = "hoàn thành đơn";
                 break;
             case 1:
-                title = "đơn giao";
+                title = "giao sau";
                 break;
-//            case 2:
-//                title = "hoàn thành đơn";
-//                break;
-//            case 3:
-//                title = "giao sau";
-//                break;
         }
         return title;
     }

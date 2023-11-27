@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.duangiaohang.Models.OrderData;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 public class NotDeliveryFragment extends Fragment {
     // fragment 4 **************************************
     View view;
+    ImageView img_NotDelivery;
     RecyclerView rcv_Receive;
     CustomAdapterNotDelivery customAdapterNotDelivery;
     DatabaseReference databaseReference;
@@ -46,7 +48,7 @@ public class NotDeliveryFragment extends Fragment {
 
     private void getListItemOrder() {
         databaseReference = firebaseDatabase.getReference("OrderProduct");
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -58,6 +60,13 @@ public class NotDeliveryFragment extends Fragment {
                         if (orderData.getStatusOrder()==6){
                             orderDataArrayList.add(orderData);
                             customAdapterNotDelivery.notifyDataSetChanged();
+                        }
+                        if (orderDataArrayList.size() <= 0) {
+                            img_NotDelivery.setVisibility(View.VISIBLE);
+                            rcv_Receive.setVisibility(View.GONE);
+                        } else {
+                            img_NotDelivery.setVisibility(View.GONE);
+                            rcv_Receive.setVisibility(View.VISIBLE);
                         }
                     }
                 }
@@ -73,12 +82,13 @@ public class NotDeliveryFragment extends Fragment {
         customAdapterNotDelivery = new CustomAdapterNotDelivery(orderDataArrayList, requireContext());
         rcv_Receive.setLayoutManager(new LinearLayoutManager(requireContext()));
         rcv_Receive.setAdapter(customAdapterNotDelivery);
-        customAdapterNotDelivery.notifyDataSetChanged();
     }
 
     private void setControl() {
         rcv_Receive = view.findViewById(R.id.rcv_Not_Delivery_Fragment);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL);
         rcv_Receive.addItemDecoration(dividerItemDecoration);
+        img_NotDelivery = view.findViewById(R.id.img_no_delivery_NotDeliveryFragment);
+
     }
 }

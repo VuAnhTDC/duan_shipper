@@ -10,5 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="5dp"/>
+    <ImageView
+        android:id="@+id/img_no_delivery_DeliveredSuccessfully"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/no_deliverry"
+        android:layout_margin="5dp"/>
 
 </FrameLayout>

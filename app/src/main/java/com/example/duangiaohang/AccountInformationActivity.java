@@ -242,29 +242,6 @@ public class AccountInformationActivity extends AppCompatActivity implements Dia
         Toast.makeText(AccountInformationActivity.this, "Cập nhật dữ liệu share thành công", Toast.LENGTH_SHORT).show();
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     private void openGallery() {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST);

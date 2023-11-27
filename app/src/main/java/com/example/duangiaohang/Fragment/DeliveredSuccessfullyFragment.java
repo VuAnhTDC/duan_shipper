@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.duangiaohang.Models.OrderData;
@@ -30,6 +31,7 @@ import java.util.ArrayList;
 public class DeliveredSuccessfullyFragment extends Fragment {
     // fragment 3 **************************************
     View view;
+    ImageView img_NotDelivery;
     RecyclerView rcv_Receive;
     CustomAdapterCompleteDelivered customAdapterCompleteDelivered;
     DatabaseReference databaseReference;
@@ -46,7 +48,7 @@ public class DeliveredSuccessfullyFragment extends Fragment {
 
     private void getListItemOrder() {
         databaseReference = firebaseDatabase.getReference("OrderProduct");
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -58,6 +60,13 @@ public class DeliveredSuccessfullyFragment extends Fragment {
                         if (orderData.getStatusOrder()==4){
                             orderDataArrayList.add(orderData);
                             customAdapterCompleteDelivered.notifyDataSetChanged();
+                        }
+                        if (orderDataArrayList.size() <= 0) {
+                            img_NotDelivery.setVisibility(View.VISIBLE);
+                            rcv_Receive.setVisibility(View.GONE);
+                        } else {
+                            img_NotDelivery.setVisibility(View.GONE);
+                            rcv_Receive.setVisibility(View.VISIBLE);
                         }
                     }
                 }
@@ -73,12 +82,13 @@ public class DeliveredSuccessfullyFragment extends Fragment {
         customAdapterCompleteDelivered = new CustomAdapterCompleteDelivered(orderDataArrayList, requireContext());
         rcv_Receive.setLayoutManager(new LinearLayoutManager(requireContext()));
         rcv_Receive.setAdapter(customAdapterCompleteDelivered);
-        customAdapterCompleteDelivered.notifyDataSetChanged();
+
     }
 
     private void setControl() {
         rcv_Receive = view.findViewById(R.id.rcv_DeliveredSuccessfully_Fragment);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL);
         rcv_Receive.addItemDecoration(dividerItemDecoration);
+        img_NotDelivery = view.findViewById(R.id.img_no_delivery_DeliveredSuccessfully);
     }
 }

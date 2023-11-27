@@ -15,10 +15,21 @@
         android:textSize="25sp"
         android:layout_marginTop="10dp"
         />
-    <androidx.recyclerview.widget.RecyclerView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/recyclerViewTC"
-        android:layout_margin="10dp"/>
+        android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/recyclerViewTC"
+            android:layout_margin="10dp"/>
+        <ImageView
+            android:id="@+id/img_no_delivery_HomeFragmentHomepage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/no_deliverry"
+            android:layout_margin="5dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </LinearLayout>

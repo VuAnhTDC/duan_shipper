@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.duangiaohang.Models.OrderData;
@@ -28,6 +29,7 @@ import java.util.HashMap;
 
 public class HomeFragmentHomepage extends Fragment {
     RecyclerView recyclerView;
+    ImageView img_NotDelivery;
     ArrayList<OrderData> orderDataArrayList = new ArrayList<>();
     CustomAdapterHomeShipper customAdapterHomeShipper;
     View view;
@@ -46,7 +48,7 @@ public class HomeFragmentHomepage extends Fragment {
 
     private void getListItemOrder() {
         databaseReference = firebaseDatabase.getReference("OrderProduct");
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -56,12 +58,15 @@ public class HomeFragmentHomepage extends Fragment {
                         OrderData orderData = snapshotOrder.getValue(OrderData.class);
                         assert orderData != null;
                         if (orderData.getStatusOrder()==1){
-//                            System.out.println("lay danh sach order: "+orderData.toString());
-//                            String codeOrder = snapshotOrder.getKey();
-//                            System.out.println("mã Oder order: "+codeOrder);
-//                            listOrder.put(codeOrder,orderData);
                             orderDataArrayList.add(orderData);
                             customAdapterHomeShipper.notifyDataSetChanged();
+                        }
+                        if (orderDataArrayList.size() <= 0) {
+                            img_NotDelivery.setVisibility(View.VISIBLE);
+                            recyclerView.setVisibility(View.GONE);
+                        } else {
+                            img_NotDelivery.setVisibility(View.GONE);
+                            recyclerView.setVisibility(View.VISIBLE);
                         }
                     }
                 }
@@ -77,13 +82,13 @@ public class HomeFragmentHomepage extends Fragment {
         customAdapterHomeShipper = new CustomAdapterHomeShipper(orderDataArrayList, requireContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setAdapter(customAdapterHomeShipper);
-        customAdapterHomeShipper.notifyDataSetChanged();
 
     }
     private void setControl() {
         recyclerView = view.findViewById(R.id.recyclerViewTC);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
+        img_NotDelivery = view.findViewById(R.id.img_no_delivery_HomeFragmentHomepage);
     }
 
 }
