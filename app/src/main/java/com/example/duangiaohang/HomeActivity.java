@@ -42,20 +42,13 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.man_hinh_trang_chu_shippe_layout);
-context= this;
-//        firebaseDatabase = FirebaseDatabase.getInstance();
-//        databaseReference = firebaseDatabase.getReference("OrderProduct");
-
-
+        context= this;
         setControl();
         customAdapterHomeShipper = new CustomAdapterHomeShipper(orderDataArrayList, context);
        // LinearLayoutManager linearLayoutManagerTC = new LinearLayoutManager(this);
         recyclerViewTC.setLayoutManager(new LinearLayoutManager(context));
         recyclerViewTC.setAdapter(customAdapterHomeShipper);
-      //  getListItemShipperUser();
         setEvent();
-
-
     }
 
     private void setEvent() {
@@ -91,48 +84,8 @@ context= this;
     }
 
 
-    private void getListItemShipperUser() {
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("OrderProduct");
-        databaseReference.addValueEventListener(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                orderDataArrayList.clear();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    for (DataSnapshot snapshot1 : dataSnapshot.getChildren()) {
-
-                        OrderData orderData = snapshot1.getValue(OrderData.class);
-                        if (orderData.getStatusOrder() == 1) {
-                            orderDataArrayList.add(orderData);
-                            Log.d("FirebaseData", "Data: " + orderData.toString());
-
-                        }
-                    }
-                }
-
-                System.out.println("systemout"+orderDataArrayList.size());
-                customAdapterHomeShipper.notifyDataSetChanged();
-
-            }
-
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(HomeActivity.this, "Lỗi khi tải dữ liệu từ Firebase", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
-
-    }
-
-
-
     private void setControl() {
         recyclerViewTC = findViewById(R.id.recyclerViewTC);
-
-
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         recyclerViewTC.addItemDecoration(dividerItemDecoration);
     }
