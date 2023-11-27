@@ -2,11 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/common_google_signin_btn_icon_light_normal_background"
-    android:orientation="vertical"
-    android:id="@+id/card_order"
-    >
-
+    android:id="@+id/card_Not_Delivery_Oder">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,43 +12,34 @@
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:id="@+id/ivItemImageSPTC"
+            android:id="@+id/img_product_Not_Delivery_Oder"
             android:layout_margin="10dp"
             android:src="@drawable/ggcacc" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginRight="10dp"
             android:orientation="vertical">
-
             <TextView
-                android:id="@+id/tvItemMaDonHang"
+                android:id="@+id/tv_codeorders_Not_Delivery_Oder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/m_n_h_ng"
-                android:textColor="#000"
-                android:textSize="14sp"
+                android:text="mã đơn "
+                android:textColor="#000000"
+                android:textSize="15sp"
                 android:textStyle="bold" />
-
             <TextView
-                android:id="@+id/tvItemDiaChiNhanHangTC"
+                android:id="@+id/tv_Not_Delivery_Oder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="@string/a_ch_nh_n_h_ng"
-                android:textColor="#000"
-                android:textSize="12sp"
-                android:maxLines="1"
-                android:ellipsize="end"
-             />
-
-<!--            <Button-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:id="@+id/btn_receive_application"-->
-<!--                android:layout_gravity="end"-->
-<!--                android:text="nhận đơn"/>-->
+                android:layout_marginTop="10dp"
+                android:text="Đơn Hàng Giao Sau "
+                android:textColor="#A60000"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
     </LinearLayout>
+
 </androidx.cardview.widget.CardView>

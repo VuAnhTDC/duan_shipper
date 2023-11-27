@@ -57,24 +57,17 @@
             android:exported="false"
           />
         <activity
+            android:name=".DetailNotDeliveryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DetailDeliveringOrderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DetailReceiveOrderActivity"
+            android:exported="false" />
+        <activity
             android:name=".HomeActivity"
 
-            android:exported="false" />
-        <activity
-            android:name=".ManHinhDonHangActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ManHinhNhanDuocHangActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ManHinhNhanHangActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ScreenNhanDuocHangShipper"
-            android:exported="false" />
-        <activity
-            android:name=".QuenMatKhauShipperActivity"
-            android:theme="@style/NoActionBar"
             android:exported="false" />
         <activity
             android:name=".VerifyPhoneNumberActivity"
@@ -83,9 +76,6 @@
         <activity
             android:name=".DangKiShipperActivity"
             android:theme="@style/NoActionBar"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".OrderDetailsNeedDelivereActivity"

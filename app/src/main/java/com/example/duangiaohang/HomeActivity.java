@@ -3,40 +3,27 @@ package com.example.duangiaohang;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.LinearLayout;
-import android.widget.Toast;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
-import com.example.duangiaohang.Models.OrderData;
-import com.example.duangiaohang.RecyclerView.CustomAdapterHomeShipper;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
+import com.example.duangiaohang.Fragment.HomeFragmentHomepage;
+import com.example.duangiaohang.Fragment.OrderDeliveredFragmentHomepage;
+import com.example.duangiaohang.Fragment.OrderFragmentHomepage;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeActivity extends AppCompatActivity {
-    private RecyclerView recyclerViewTC;
-
-    ArrayList<OrderData> orderDataArrayList = new ArrayList<>();
-    CustomAdapterHomeShipper customAdapterHomeShipper;
-    LinearLayout linnerlayout;
-
+    FrameLayout frameLayout;
+    BottomNavigationView bottomNavigationView;
     Context context;
-
-    private DatabaseReference databaseReference;
-    private FirebaseDatabase firebaseDatabase;
-
+    HomeFragmentHomepage homeFragment = new HomeFragmentHomepage();
+    OrderFragmentHomepage orderFragment = new OrderFragmentHomepage();
+    OrderDeliveredFragmentHomepage orderDeliveredFragment = new OrderDeliveredFragmentHomepage();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,15 +31,8 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.man_hinh_trang_chu_shippe_layout);
         context= this;
         setControl();
-        customAdapterHomeShipper = new CustomAdapterHomeShipper(orderDataArrayList, context);
-       // LinearLayoutManager linearLayoutManagerTC = new LinearLayoutManager(this);
-        recyclerViewTC.setLayoutManager(new LinearLayoutManager(context));
-        recyclerViewTC.setAdapter(customAdapterHomeShipper);
+        loadingFragment(homeFragment);
         setEvent();
-    }
-
-    private void setEvent() {
-
     }
 
     @Override
@@ -84,9 +64,33 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
+    private void setEvent() {
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if (item.getItemId() == R.id.buttom_TrangChu_DonHang){
+                    loadingFragment(homeFragment);
+                    return true;
+                } else if (item.getItemId() == R.id.buttom_DonHang_DonHang) {
+                    loadingFragment(orderFragment);
+                    return true;
+                }else if (item.getItemId() == R.id.buttom_NhanHang_DonHang){
+                    loadingFragment(orderDeliveredFragment);
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
+    private void loadingFragment(Fragment fragmentLoading){
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(frameLayout.getId(),fragmentLoading);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
     private void setControl() {
-        recyclerViewTC = findViewById(R.id.recyclerViewTC);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
-        recyclerViewTC.addItemDecoration(dividerItemDecoration);
+        frameLayout = findViewById(R.id.framelayout_screenhome);
+        bottomNavigationView = findViewById(R.id.bottom_navDonHang);
     }
 }

@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import com.example.duangiaohang.Class.LoadingDialog;
 import com.example.duangiaohang.Class.RegexValiDate;
 import com.example.duangiaohang.Class.ShowMessage;
@@ -35,7 +34,6 @@ public class DangNhapShipperActivity extends AppCompatActivity {
     private LoadingDialog loadingDialog;
     ProgressBar progressBar;
     TextView textView;
-
     DatabaseReference databaseReference;
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
@@ -69,10 +67,7 @@ public class DangNhapShipperActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DangNhapShipperActivity.this, ChangePassWorkInfoShipperActivity.class);
-
                 startActivity(intent);
-
-
             }
         });
         btnDangNhap.setOnClickListener(new View.OnClickListener() {

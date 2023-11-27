@@ -23,7 +23,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/D:/Android_Studio_Config/SDK/icons/material/materialicons/move_to_inbox/baseline_move_to_inbox_24.xml" />
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/local_phone/baseline_local_phone_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -33,7 +33,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="baseline_move_to_inbox_24" />
+                            <entry key="outputName" value="baseline_local_phone_24" />
                             <entry key="sourceFile" value="C:\Users\US\Desktop\DoanAndroid\duan_shipper" />
                           </map>
                         </option>
