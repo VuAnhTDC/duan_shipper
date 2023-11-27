@@ -19,6 +19,9 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.MANAGE_OWN_CALLS" />
     <uses-permission
         android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" /> <!-- Devices running Android 12L (API level 32) or lower -->
@@ -58,12 +61,15 @@
           />
         <activity
             android:name=".DetailNotDeliveryActivity"
+            android:theme="@style/NoActionBar"
             android:exported="false" />
         <activity
             android:name=".DetailDeliveringOrderActivity"
+            android:theme="@style/NoActionBar"
             android:exported="false" />
         <activity
             android:name=".DetailReceiveOrderActivity"
+            android:theme="@style/NoActionBar"
             android:exported="false" />
         <activity
             android:name=".HomeActivity"
@@ -79,6 +85,7 @@
             android:exported="false" />
         <activity
             android:name=".OrderDetailsNeedDelivereActivity"
+            android:theme="@style/NoActionBar"
             android:exported="false" />
         <activity
             android:name=".DangNhapShipperActivity"

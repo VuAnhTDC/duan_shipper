@@ -56,7 +56,7 @@ public class DetailNotDeliveryActivity extends AppCompatActivity {
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle("Thông báo");
-                if(orderData.getStatusOrder()==1) {
+                if(orderData.getStatusOrder()==6) {
                     builder.setMessage("Bạn có muốn giao lại đơn hàng này không ?");
                 }
                 builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {

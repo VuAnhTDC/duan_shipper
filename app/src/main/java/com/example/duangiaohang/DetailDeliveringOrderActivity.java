@@ -4,11 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,8 +21,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.example.duangiaohang.Class.ShowMessage;
+import android.widget.Toast;
 import com.example.duangiaohang.Models.Customer;
 import com.example.duangiaohang.Models.OrderData;
 import com.google.firebase.database.DataSnapshot;
@@ -42,6 +44,7 @@ public class DetailDeliveringOrderActivity extends AppCompatActivity {
     Button btn_xacnhan,btn_map,btn_phone,btn_giaoSau;
     Toolbar toolbarOrder;
     Context context;
+    private static final int REQUEST_CALL_PHONE_PERMISSION = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -177,7 +180,37 @@ public class DetailDeliveringOrderActivity extends AppCompatActivity {
                 openGoogleMaps(tv_addressCustomer.getText().toString().substring(9));
             }
         });
+        btn_phone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                makePhoneCall(tv_phoneCustomer.getText().toString().substring(7));
+            }
+        });
     }
+    private void makePhoneCall(String phoneNumber) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+            Intent dialIntent = new Intent(Intent.ACTION_DIAL);
+            dialIntent.setData(Uri.parse("tel:" + phoneNumber));
+            startActivity(dialIntent);
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL_PHONE_PERMISSION);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == REQUEST_CALL_PHONE_PERMISSION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Người dùng đã cấp quyền, thực hiện cuộc gọi
+                makePhoneCall(orderData.getIdCustomer_Order());
+            } else {
+                Toast.makeText(this, "Ứng dụng cần quyền để thực hiện cuộc gọi.", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
     private void openGoogleMaps(String address) {
         Log.d("YourTag", "Opening Google Maps with address: " + address);
         Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + Uri.encode(address));
