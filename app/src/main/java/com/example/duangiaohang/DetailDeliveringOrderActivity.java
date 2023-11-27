@@ -1,6 +1,7 @@
 package com.example.duangiaohang;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -8,7 +9,10 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -47,6 +51,7 @@ public class DetailDeliveringOrderActivity extends AppCompatActivity {
         setIniazation();
         setEvent();
     }
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void updateOrderStatus(int newStatus) {
         LocalDateTime currentDateTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
@@ -122,6 +127,7 @@ public class DetailDeliveringOrderActivity extends AppCompatActivity {
                     builder.setMessage(" xác nhận giao hàng thành công");
                 }
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         updateOrderStatus(4);
@@ -165,6 +171,19 @@ public class DetailDeliveringOrderActivity extends AppCompatActivity {
                 alertDialog.show();
             }
         });
+        btn_map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openGoogleMaps(tv_addressCustomer.getText().toString().substring(9));
+            }
+        });
+    }
+    private void openGoogleMaps(String address) {
+        Log.d("YourTag", "Opening Google Maps with address: " + address);
+        Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + Uri.encode(address));
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        startActivity(mapIntent);
     }
 
     private void setIniazation() {

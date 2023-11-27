@@ -8,7 +8,9 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -77,23 +79,36 @@ public class DetailReceiveOrderActivity extends AppCompatActivity {
                 alertDialog.show();
             }
         });
+        btn_map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openGoogleMaps(tv_addressShop.getText().toString().substring(9));
+            }
+        });
 
+    }
+    private void openGoogleMaps(String address) {
+        Log.d("YourTag", "Opening Google Maps with address: " + address);
+        Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + Uri.encode(address));
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        startActivity(mapIntent);
     }
     private void updateOrderStatus(int newStatus) {
         databaseReference = FirebaseDatabase.getInstance().getReference("OrderProduct/"+orderData.getIdOrder());
         databaseReference.child("statusOrder").setValue(newStatus);
     }
-    private void getShop(String idCustomerOrder){
-        databaseReference = firebaseDatabase.getReference("Customer/"+idCustomerOrder);
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+    private void getShop(String idShopOrder){
+        databaseReference = firebaseDatabase.getReference("Shop/"+idShopOrder);
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()){
-                    Customer customer = snapshot.getValue(Customer.class);
-                    System.out.println("OrderDetailsNeedDelivereActivity: du lieu san pham : " + customer.toString());
-                    tv_addressShop.setText("địa chỉ: " + customer.getAddress());
-                    tv_phoneShop.setText("phone: " + customer.getId());
-                    tv_nameShop.setText("tên khách hàng: " + customer.getName());
+                    ShopData shopData = snapshot.getValue(ShopData.class);
+                    System.out.println("OrderDetailsNeedDelivereActivity: du lieu san pham : " + shopData.toString());
+                    tv_addressShop.setText("địa chỉ: " + shopData.getShopAddress());
+                    tv_phoneShop.setText("phone: " + shopData.getIdShop());
+                    tv_nameShop.setText("tên cửa hàng: " + shopData.getShopName());
                 }else {
                     System.out.println("OrderDetailsNeedDelivereActivity: khong tim thay san pham");
                 }
@@ -107,7 +122,7 @@ public class DetailReceiveOrderActivity extends AppCompatActivity {
     }
     private void getImageProduct(String idProduct) {
         databaseReference = firebaseDatabase.getReference("ImageProducts/"+idProduct);
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists() && snapshot.hasChildren()) {

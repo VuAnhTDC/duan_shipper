@@ -58,10 +58,10 @@ public class DangNhapShipperActivity extends AppCompatActivity {
         tvQuenMkShipper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DangNhapShipperActivity.this, QuenMatKhauShipperActivity.class);
-                //   intent.putExtra(E,edtTitle.getText().toString());
-                //   intent.putExtra(DESCRIPTION,edtDescription.getText().toString());
-                startActivity(intent);
+//                Intent intent = new Intent(DangNhapShipperActivity.this, QuenMatKhauShipperActivity.class);
+//                //   intent.putExtra(E,edtTitle.getText().toString());
+//                //   intent.putExtra(DESCRIPTION,edtDescription.getText().toString());
+//                startActivity(intent);
 
 
             }
