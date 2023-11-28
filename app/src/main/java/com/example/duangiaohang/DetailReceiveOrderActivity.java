@@ -45,6 +45,7 @@ public class DetailReceiveOrderActivity extends AppCompatActivity {
     Toolbar toolbarOrder;
     Context context;
     private static final int REQUEST_CALL_PHONE_PERMISSION = 1;
+    String fcmTokenShop;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -143,6 +144,7 @@ public class DetailReceiveOrderActivity extends AppCompatActivity {
                     tv_addressShop.setText("địa chỉ: " + shopData.getShopAddress());
                     tv_phoneShop.setText("phone: " + shopData.getIdShop());
                     tv_nameShop.setText("tên cửa hàng: " + shopData.getShopName());
+                    fcmTokenShop = shopData.getFcmToken();
                 }else {
                     System.out.println("OrderDetailsNeedDelivereActivity: khong tim thay san pham");
                 }

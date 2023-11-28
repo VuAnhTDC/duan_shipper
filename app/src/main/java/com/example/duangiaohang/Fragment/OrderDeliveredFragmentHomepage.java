@@ -19,28 +19,28 @@ import com.example.duangiaohang.R;
 import java.util.Objects;
 
 public class OrderDeliveredFragmentHomepage extends Fragment {
-    TabLayout tabLayout_ScreenOrderList;
-    ViewPager viewPager_ScreenOrderList;
-    OrderStatusListViewPageAdapter statusListViewPageAdapter;
-    View view;
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_order_delivered_screen, container, false);
-        setControl();
-        setIntiazation();
-        return view;
-    }
-
-    private void setControl() {
-        tabLayout_ScreenOrderList = view.findViewById(R.id.tabLayout_OrderDeliveredFragment);
-        viewPager_ScreenOrderList = view.findViewById(R.id.viewPager_OrderDeliveredFragment);
-    }
-
-    private void setIntiazation() {
-        statusListViewPageAdapter = new OrderStatusListViewPageAdapter(requireActivity().getSupportFragmentManager());
-        viewPager_ScreenOrderList.setAdapter(statusListViewPageAdapter);
-        tabLayout_ScreenOrderList.setupWithViewPager(viewPager_ScreenOrderList);
-
-    }
+//    TabLayout tabLayout_ScreenOrderList;
+//    ViewPager viewPager_ScreenOrderList;
+//    OrderStatusListViewPageAdapter statusListViewPageAdapter;
+//    View view;
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+//        view = inflater.inflate(R.layout.fragment_order_delivered_screen, container, false);
+//        setControl();
+//        setIntiazation();
+//        return view;
+//    }
+//
+//    private void setControl() {
+//        tabLayout_ScreenOrderList = view.findViewById(R.id.tabLayout_OrderDeliveredFragment);
+//        viewPager_ScreenOrderList = view.findViewById(R.id.viewPager_OrderDeliveredFragment);
+//    }
+//
+//    private void setIntiazation() {
+//        statusListViewPageAdapter = new OrderStatusListViewPageAdapter(requireActivity().getSupportFragmentManager());
+//        viewPager_ScreenOrderList.setAdapter(statusListViewPageAdapter);
+//        tabLayout_ScreenOrderList.setupWithViewPager(viewPager_ScreenOrderList);
+//
+//    }
 
 }

@@ -117,6 +117,7 @@ public class DangNhapShipperActivity extends AppCompatActivity {
                                         editor.putString("informationShop", json);
                                         editor.apply();
                                         Intent intent = new Intent(context, HomeActivity.class);
+                                        loadingDialog.dismissDialog();
                                         startActivity(intent);
                                         finish();
                                         return;

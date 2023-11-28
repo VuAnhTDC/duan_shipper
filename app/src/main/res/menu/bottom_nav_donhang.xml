@@ -10,9 +10,9 @@
         android:title="Đơn Hàng"
         android:icon="@drawable/baseline_shopping_cart_checkout_24"
         android:id="@+id/buttom_DonHang_DonHang"/>
-    <item
-        android:title="Nhận Hàng"
-        android:icon="@drawable/baseline_move_to_inbox_24"
-        android:id="@+id/buttom_NhanHang_DonHang"/>
+<!--    <item-->
+<!--        android:title="Nhận Hàng"-->
+<!--        android:icon="@drawable/baseline_move_to_inbox_24"-->
+<!--        android:id="@+id/buttom_NhanHang_DonHang"/>-->
 
 </menu>

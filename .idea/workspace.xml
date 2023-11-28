@@ -9,38 +9,21 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3562d6a5-46d1-4292-9722-fea5d833ee02" name="Changes" comment="&quot;update button phone&quot;">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/duangiaohang/RecyclerView/OrderStatusListViewPageAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/no_deliverry.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="3562d6a5-46d1-4292-9722-fea5d833ee02" name="Changes" comment="&quot;update main version 1&quot;">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/duangiaohang/AccountInformationActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/duangiaohang/AccountInformationActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/duangiaohang/DangNhapShipperActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/duangiaohang/DangNhapShipperActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/duangiaohang/DetailReceiveOrderActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/duangiaohang/DetailReceiveOrderActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/duangiaohang/Fragment/DeliveredSuccessfullyFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/duangiaohang/Fragment/DeliveredSuccessfullyFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/duangiaohang/Fragment/DeliveringFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/duangiaohang/Fragment/DeliveringFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/duangiaohang/Fragment/HomeFragmentHomepage.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/duangiaohang/Fragment/HomeFragmentHomepage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/duangiaohang/Fragment/NotDeliveryFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/duangiaohang/Fragment/NotDeliveryFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/duangiaohang/Fragment/OrderDeliveredFragmentHomepage.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/duangiaohang/Fragment/OrderDeliveredFragmentHomepage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/duangiaohang/Fragment/ReceiveFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/duangiaohang/Fragment/ReceiveFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/duangiaohang/HomeActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/duangiaohang/HomeActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/duangiaohang/Models/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/duangiaohang/Models/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/duangiaohang/Models/ShopData.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/duangiaohang/Models/ShopData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/duangiaohang/RecyclerView/Order_ListViewPagerAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/duangiaohang/RecyclerView/Order_ListViewPagerAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_delivered_successfully.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_delivered_successfully.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_delivering.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_delivering.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_home_screen.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_home_screen.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_not_delivery.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_not_delivery.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_order_delivered_screen.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_order_delivered_screen.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_receive_screen.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_receive_screen.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_delivered_successfully.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_delivered_successfully.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_mh_trangchu_shipper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_mh_trangchu_shipper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_not_delivery.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_not_delivery.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_oder.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_oder.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/loading_dialog.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/loading_dialog.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/m_h_nhan_duoc_hang_chua_giao_fragment.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/m_h_nhan_duoc_hang_giao_sau_fragment.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/man_hinh_don_hang_layout.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/man_hinh_nhan_hang_layout.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/menu/bottom_nav_donhang.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/menu/bottom_nav_donhang.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,7 +152,14 @@
       <option name="presentableId" value="Default" />
       <updated>1701077096329</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="&quot;update main version 1&quot;">
+      <created>1701102570568</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1701102570568</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -186,6 +176,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="&quot;update thêm tính năng opent map&quot;" />
     <MESSAGE value="&quot;update button phone&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="&quot;update button phone&quot;" />
+    <MESSAGE value="&quot;update main version 1&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="&quot;update main version 1&quot;" />
   </component>
 </project>

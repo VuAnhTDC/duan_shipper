@@ -48,7 +48,7 @@ public class HomeFragmentHomepage extends Fragment {
 
     private void getListItemOrder() {
         databaseReference = firebaseDatabase.getReference("OrderProduct");
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

@@ -74,10 +74,11 @@ public class HomeActivity extends AppCompatActivity {
                 } else if (item.getItemId() == R.id.buttom_DonHang_DonHang) {
                     loadingFragment(orderFragment);
                     return true;
-                }else if (item.getItemId() == R.id.buttom_NhanHang_DonHang){
-                    loadingFragment(orderDeliveredFragment);
-                    return true;
                 }
+//                else if (item.getItemId() == R.id.buttom_NhanHang_DonHang){
+//                    loadingFragment(orderDeliveredFragment);
+//                    return true;
+//                }
                 return false;
             }
         });

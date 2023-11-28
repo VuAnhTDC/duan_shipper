@@ -26,16 +26,16 @@ public class Order_ListViewPagerAdapter extends FragmentStatePagerAdapter {
                 return new ReceiveFragment();
             case 1:
                 return new DeliveringFragment();
-//            case 2:
-//                return new DeliveredSuccessfullyFragment();
-//            case 3:
-//                return new NotDeliveryFragment();
+            case 2:
+                return new DeliveredSuccessfullyFragment();
+            case 3:
+                return new NotDeliveryFragment();
         }
         return new ReceiveFragment();
     }
     @Override
     public int getCount() {
-        return 2;
+        return 4;
     }
     @Nullable
     @Override
@@ -48,12 +48,12 @@ public class Order_ListViewPagerAdapter extends FragmentStatePagerAdapter {
             case 1:
                 title = "đơn giao";
                 break;
-//            case 2:
-//                title = "hoàn thành đơn";
-//                break;
-//            case 3:
-//                title = "giao sau";
-//                break;
+            case 2:
+                title = "hoàn thành đơn";
+                break;
+            case 3:
+                title = "giao sau";
+                break;
         }
         return title;
     }
